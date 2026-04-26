@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestão Bia</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0f0ed;
+    --bg2: #e8e8e4;
+    --card: #fafaf8;
+    --border: #ddddd8;
+    --text: #1a1a1a;
+    --text2: #6b6b6b;
+    --accent: #2563eb;
+    --accent2: #1d4ed8;
+    --green: #16a34a;
+    --red: #dc2626;
+    --yellow: #ca8a04;
+    --purple: #7c3aed;
+    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.05);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #0f1117;
+    --bg2: #181c27;
+    --card: #1e2232;
+    --border: #2d3348;
+    --text: #f0f0ed;
+    --text2: #9099b0;
+    --accent: #3b82f6;
+    --accent2: #60a5fa;
+    --green: #22c55e;
+    --red: #f87171;
+    --yellow: #fbbf24;
+    --purple: #a78bfa;
+    --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.25);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 0.3s, color 0.3s; }
+  h1, h2, h3 { font-family: 'DM Serif Display', serif; }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0; width: 220px;
+    background: var(--card); border-right: 1px solid var(--border);
+    padding: 24px 0; z-index: 100; transition: background 0.3s, border-color 0.3s;
+    display: flex; flex-direction: column;
+  }
+  .main { margin-left: 220px; min-height: 100vh; padding: 28px 32px; }
+
+  .nav-logo { padding: 0 20px 24px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+  .nav-logo h1 { font-size: 22px; color: var(--accent); letter-spacing: -0.5px; }
+  .nav-logo span { font-size: 11px; color: var(--text2); font-family: 'DM Sans'; font-weight: 400; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 20px; cursor: pointer; font-size: 14px; font-weight: 500;
+    color: var(--text2); transition: all 0.2s; border-left: 3px solid transparent;
+  }
+  .nav-item:hover { color: var(--text); background: var(--bg2); }
+  .nav-item.active { color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); border-left-color: var(--accent); }
+  .nav-icon { width: 18px; text-align: center; font-size: 16px; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); transition: background 0.3s, border-color 0.3s; }
+  .card-sm { padding: 20px; }
+  .card-md { padding: 24px; }
+
+  .stat-value { font-size: 26px; font-weight: 700; font-family: 'DM Serif Display'; line-height: 1; }
+  .stat-label { font-size: 12px; font-weight: 500; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 6px; }
+  .stat-sub { font-size: 12px; color: var(--text2); margin-top: 4px; }
+
+  .progress-track { height: 8px; background: var(--bg2); border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+
+  label { font-size: 13px; font-weight: 500; color: var(--text2); display: block; margin-bottom: 4px; }
+  input, select, textarea {
+    width: 100%; padding: 9px 12px; font-size: 14px; font-family: 'DM Sans';
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    color: var(--text); transition: border-color 0.2s, background 0.3s; outline: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
+  select option { background: var(--card); color: var(--text); }
+  textarea { resize: vertical; min-height: 70px; }
+
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 8px; font-size: 14px; font-weight: 500; font-family: 'DM Sans'; cursor: pointer; border: none; transition: all 0.2s; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 35%, transparent); }
+  .btn-secondary { background: var(--bg2); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { background: var(--border); }
+  .btn-danger { background: color-mix(in srgb, var(--red) 10%, transparent); color: var(--red); border: 1px solid color-mix(in srgb, var(--red) 25%, transparent); }
+  .btn-danger:hover { background: color-mix(in srgb, var(--red) 20%, transparent); }
+  .btn-sm { padding: 6px 12px; font-size: 13px; }
+  .btn-icon { padding: 7px 10px; border-radius: 7px; background: var(--bg2); border: 1px solid var(--border); color: var(--text2); cursor: pointer; font-size: 15px; transition: all 0.2s; font-weight: 700; letter-spacing: 1px; }
+  .btn-icon:hover { color: var(--text); background: var(--border); }
+
+  /* TABLE — critical: overflow visible for dropdowns */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th { padding: 10px 14px; text-align: left; font-size: 11.5px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 1px solid var(--border); background: var(--bg2); }
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: color-mix(in srgb, var(--accent) 4%, transparent); }
+  tr.overdue td { background: color-mix(in srgb, var(--red) 5%, transparent); }
+
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 20px; font-size: 11.5px; font-weight: 600; }
+  .badge-green { background: color-mix(in srgb, var(--green) 12%, transparent); color: var(--green); }
+  .badge-red { background: color-mix(in srgb, var(--red) 12%, transparent); color: var(--red); }
+  .badge-yellow { background: color-mix(in srgb, var(--yellow) 12%, transparent); color: var(--yellow); }
+  .badge-blue { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+  .badge-purple { background: color-mix(in srgb, var(--purple) 12%, transparent); color: var(--purple); }
+
+  .toggle { position: relative; width: 40px; height: 22px; cursor: pointer; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-track { position: absolute; inset: 0; background: var(--border); border-radius: 11px; transition: background 0.3s; }
+  .toggle input:checked + .toggle-track { background: var(--accent); }
+  .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: transform 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+  .toggle input:checked ~ .toggle-thumb { transform: translateX(18px); }
+
+  .tooltip-wrap { position: relative; display: inline-flex; }
+  .tooltip-content {
+    position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+    background: var(--text); color: var(--card); padding: 7px 11px; border-radius: 7px;
+    font-size: 12px; white-space: pre-wrap; max-width: 220px; width: max-content;
+    pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 9999;
+    box-shadow: var(--shadow-lg); line-height: 1.4;
+  }
+  .tooltip-content::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--text); }
+  .tooltip-wrap:hover .tooltip-content { opacity: 1; }
+
+  /* DROPDOWN — fixed position via JS to escape overflow */
+  .menu-wrap { position: relative; display: inline-block; }
+  .menu-dropdown {
+    position: fixed; /* overridden by JS */
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10);
+    min-width: 150px; z-index: 9999; overflow: hidden; display: none;
+  }
+  .menu-dropdown.open { display: block; }
+  .menu-dropdown button { display: flex; align-items: center; gap: 8px; width: 100%; padding: 11px 16px; font-size: 13.5px; font-family: 'DM Sans'; background: none; border: none; color: var(--text); cursor: pointer; transition: background 0.15s; }
+  .menu-dropdown button:hover { background: var(--bg2); }
+  .menu-dropdown button.danger { color: var(--red); }
+
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 10000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow-lg); width: 94%; max-width: 640px; max-height: 90vh; overflow-y: auto; }
+  .modal-header { padding: 22px 24px 0; display: flex; align-items: center; justify-content: space-between; }
+  .modal-body { padding: 20px 24px 24px; }
+  .modal-header h2 { font-size: 20px; }
+
+  .filter-tabs { display: flex; gap: 4px; background: var(--bg2); border-radius: 9px; padding: 3px; }
+  .filter-tab { padding: 6px 14px; border-radius: 7px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; background: none; color: var(--text2); transition: all 0.2s; }
+  .filter-tab.active { background: var(--card); color: var(--accent); box-shadow: var(--shadow); }
+
+  .pill { padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--card); color: var(--text2); transition: all 0.2s; }
+  .pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .empty-state { text-align: center; padding: 48px 24px; color: var(--text2); }
+  .empty-state .icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
+  .empty-state p { font-size: 15px; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in { animation: fadeIn 0.3s ease; }
+
+  /* HO badge */
+  .ho-val { font-weight: 700; color: var(--purple); font-size: 13px; }
+
+  /* Commission tiers display */
+  .tier-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 4px; }
+  .tier-row.active-tier { background: color-mix(in srgb, var(--accent) 10%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); font-weight: 600; }
+  .tier-row:not(.active-tier) { background: var(--bg2); color: var(--text2); }
+
+  @media (max-width: 768px) {
+    .sidebar { width: 100%; height: auto; position: relative; flex-direction: row; flex-wrap: wrap; padding: 12px; }
+    .main { margin-left: 0; padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar" id="sidebar">
+  <div class="nav-logo">
+    <h1>Gestão Bia</h1>
+    <span>Contratos & Cobranças</span>
+  </div>
+  <div style="flex:1">
+    <div class="nav-item active" onclick="showPage('dashboard')" id="nav-dashboard"><span class="nav-icon">📊</span> Dashboard</div>
+    <div class="nav-item" onclick="showPage('contratos')" id="nav-contratos"><span class="nav-icon">📄</span> Contratos</div>
+    <div class="nav-item" onclick="showPage('novo')" id="nav-novo"><span class="nav-icon">➕</span> Novo Contrato</div>
+    <div class="nav-item" onclick="showPage('config')" id="nav-config"><span class="nav-icon">⚙️</span> Configurações</div>
+  </div>
+  <div style="padding:16px 20px;border-top:1px solid var(--border);">
+    <div style="display:flex;align-items:center;gap:8px;justify-content:space-between;">
+      <span style="font-size:13px;color:var(--text2);">☀️ / 🌙</span>
+      <label class="toggle"><input type="checkbox" id="darkToggle" onchange="toggleDark()"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- DASHBOARD -->
+  <div id="page-dashboard" class="fade-in">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h2 style="font-size:26px;line-height:1.2;">Dashboard</h2>
+        <p style="color:var(--text2);font-size:14px;margin-top:2px;" id="dash-period-label">Visão geral do período</p>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <div class="filter-tabs">
+          <button class="filter-tab" onclick="setFilter('dia',this)">Dia</button>
+          <button class="filter-tab" onclick="setFilter('semana',this)">Semana</button>
+          <button class="filter-tab active" onclick="setFilter('mes',this)">Mês</button>
+          <button class="filter-tab" onclick="setFilter('todos',this)">Todos</button>
+        </div>
+        <input type="date" id="filterFrom" style="width:140px;" onchange="applyCustomFilter()">
+        <span style="color:var(--text2);font-size:13px;">até</span>
+        <input type="date" id="filterTo" style="width:140px;" onchange="applyCustomFilter()">
+      </div>
+    </div>
+
+    <!-- Main stat cards row 1 -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:16px;margin-bottom:16px;">
+      <div class="card card-sm">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <span style="font-size:22px;">💰</span><span class="badge badge-green">Pago</span>
+        </div>
+        <div class="stat-value" id="card-pago" style="color:var(--green);">R$ 0,00</div>
+        <div class="stat-label">Total Pago (Caixa)</div>
+        <div class="stat-sub" id="card-pago-count">0 contratos</div>
+      </div>
+      <div class="card card-sm">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <span style="font-size:22px;">⏳</span><span class="badge badge-yellow">Aberto</span>
+        </div>
+        <div class="stat-value" id="card-aberto" style="color:var(--yellow);">R$ 0,00</div>
+        <div class="stat-label">Total em Aberto</div>
+        <div class="stat-sub" id="card-aberto-count">0 contratos</div>
+      </div>
+      <div class="card card-sm">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <span style="font-size:22px;">🚫</span><span class="badge badge-red">Cancelado</span>
+        </div>
+        <div class="stat-value" id="card-cancelado" style="color:var(--red);">R$ 0,00</div>
+        <div class="stat-label">Total Cancelado</div>
+        <div class="stat-sub" id="card-cancelado-count">0 contratos</div>
+      </div>
+      <div class="card card-sm">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <span style="font-size:22px;">📋</span><span class="badge badge-blue">Ativos</span>
+        </div>
+        <div class="stat-value" id="card-ativos" style="color:var(--accent);">0</div>
+        <div class="stat-label">Contratos Ativos</div>
+        <div class="stat-sub" id="card-projecao">Projeção: R$ 0,00</div>
+      </div>
+      <!-- NEW: Total HO Gerado -->
+      <div class="card card-sm">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <span style="font-size:22px;">📈</span><span class="badge badge-purple">HO</span>
+        </div>
+        <div class="stat-value" id="card-ho" style="color:var(--purple);">R$ 0,00</div>
+        <div class="stat-label">Total HO Gerado</div>
+        <div class="stat-sub" id="card-ho-sub">Sobre boletos em aberto</div>
+      </div>
+      <!-- NEW: Total de Unidades -->
+      <div class="card card-sm">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <span style="font-size:22px;">🔢</span><span class="badge" style="background:var(--bg2);color:var(--text2);">Total</span>
+        </div>
+        <div class="stat-value" id="card-unidades" style="color:var(--text);">0</div>
+        <div class="stat-label">Total de Unidades</div>
+        <div class="stat-sub" id="card-unidades-sub">Contratos no período</div>
+      </div>
+    </div>
+
+    <!-- Meta + Comissão -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+      <div class="card card-md">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+          <h3 style="font-size:16px;">🎯 Meta Mensal</h3>
+          <span style="font-size:13px;color:var(--text2);" id="meta-percent-label">0%</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:12px;">
+          <span class="stat-value" id="meta-pago-val" style="font-size:20px;color:var(--green);">R$ 0,00</span>
+          <span style="color:var(--text2);font-size:14px;">/ <span id="meta-total-val">R$ 0,00</span></span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="meta-bar" style="width:0%;background:var(--green);"></div></div>
+        <p style="font-size:12px;color:var(--text2);margin-top:8px;" id="meta-falta">Faltam R$ 0,00 para a meta</p>
+      </div>
+      <div class="card card-md">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <h3 style="font-size:16px;">💼 Comissão Escalonada</h3>
+          <span class="badge badge-blue" id="comissao-tier-badge">0%</span>
+        </div>
+        <div class="stat-value" id="comissao-val" style="font-size:22px;color:var(--accent);margin-bottom:10px;">R$ 0,00</div>
+        <div id="commission-tiers"></div>
+      </div>
+    </div>
+
+    <!-- Overdue alert -->
+    <div id="overdue-alert" class="card card-sm" style="display:none;margin-bottom:16px;border-color:color-mix(in srgb,var(--red) 40%,transparent);background:color-mix(in srgb,var(--red) 6%,transparent);">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:20px;">⚠️</span>
+        <div>
+          <p style="font-weight:600;color:var(--red);font-size:14px;" id="overdue-title">Boletos Vencidos</p>
+          <p style="font-size:13px;color:var(--text2);" id="overdue-desc"></p>
+        </div>
+        <button class="btn btn-sm" style="margin-left:auto;border:1px solid var(--red);color:var(--red);background:none;" onclick="showPage('contratos')">Ver todos</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTRATOS PAGE -->
+  <div id="page-contratos" style="display:none;" class="fade-in">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+      <h2 style="font-size:26px;">Contratos</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <!-- Filtro de período para a tabela -->
+        <div class="filter-tabs" id="table-filter-tabs">
+          <button class="filter-tab" onclick="setTableFilter('dia',this)">Dia</button>
+          <button class="filter-tab" onclick="setTableFilter('semana',this)">Semana</button>
+          <button class="filter-tab active" onclick="setTableFilter('mes',this)">Mês</button>
+          <button class="filter-tab" onclick="setTableFilter('todos',this)">Todos</button>
+        </div>
+        <input type="date" id="tableFilterFrom" style="width:130px;" onchange="applyTableCustomFilter()">
+        <span style="color:var(--text2);font-size:13px;">até</span>
+        <input type="date" id="tableFilterTo" style="width:130px;" onchange="applyTableCustomFilter()">
+        <button class="btn btn-secondary btn-sm" onclick="exportCSV()">📥 Exportar CSV</button>
+        <button class="btn btn-primary btn-sm" onclick="showPage('novo')">➕ Novo</button>
+      </div>
+    </div>
+
+    <!-- Carteira pills -->
+    <div style="margin-bottom:16px;">
+      <p style="font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;">Filtrar por Carteira</p>
+      <div id="carteira-pills" style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="pill active" onclick="filterCarteira('all',this)">Todas</button>
+      </div>
+    </div>
+
+    <!-- Search + status + tipo -->
+    <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+      <input type="text" id="searchInput" placeholder="🔍  Buscar por nome, CPF/CNPJ, nº contrato..." style="flex:1;min-width:220px;" oninput="renderTable()">
+      <select id="statusFilter" onchange="renderTable()" style="width:150px;">
+        <option value="">Todos status</option>
+        <option value="Pago">Pago</option>
+        <option value="Aberto">Aberto</option>
+        <option value="Cancelado">Cancelado</option>
+      </select>
+      <select id="tipoFilter" onchange="renderTable()" style="width:150px;">
+        <option value="">Todos tipos</option>
+        <option value="Quitação À Vista">Quitação À Vista</option>
+        <option value="Quitação Parcelada">Quitação Parcelada</option>
+        <option value="Parcela Comum">Parcela Comum</option>
+      </select>
+    </div>
+
+    <div class="card" style="overflow:visible;">
+      <div class="table-wrap" style="overflow:visible;">
+        <table id="mainTable">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>CPF/CNPJ</th>
+              <th>Nº Contrato</th>
+              <th>Valor</th>
+              <th>Vencimento</th>
+              <th>Dias Atraso</th>
+              <th>Taxa HO</th>
+              <th>Valor HO</th>
+              <th>Tipo</th>
+              <th>Status</th>
+              <th>Carteira</th>
+              <th style="text-align:center;">Obs</th>
+              <th style="text-align:center;width:50px;"></th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr><td colspan="13"><div class="empty-state"><div class="icon">📄</div><p>Nenhum contrato encontrado</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOVO / EDITAR PAGE -->
+  <div id="page-novo" style="display:none;" class="fade-in">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+      <h2 style="font-size:26px;" id="form-title">Novo Contrato</h2>
+      <button class="btn btn-secondary btn-sm" onclick="resetForm();showPage('contratos')">← Voltar</button>
+    </div>
+    <div class="card card-md" style="max-width:780px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div><label>Nome completo *</label><input type="text" id="f-nome" placeholder="Ex: Maria da Silva"></div>
+        <div><label>CPF / CNPJ *</label><input type="text" id="f-cpf" placeholder="000.000.000-00" maxlength="18" oninput="maskCpfCnpj(this)"></div>
+        <div><label>Data de cadastro</label><input type="date" id="f-data"></div>
+        <div><label>Nº Contrato *</label><input type="text" id="f-contrato" placeholder="Ex: 2024-0001"></div>
+        <div><label>Valor do Boleto (R$) *</label><input type="text" id="f-valor" placeholder="0,00" oninput="maskMoney(this)"></div>
+        <div><label>Vencimento *</label><input type="date" id="f-vencimento"></div>
+        <div>
+          <label>Tipo *</label>
+          <select id="f-tipo">
+            <option value="Parcela Comum">Parcela Comum</option>
+            <option value="Quitação À Vista">Quitação À Vista</option>
+            <option value="Quitação Parcelada">Quitação Parcelada</option>
+          </select>
+        </div>
+        <div>
+          <label>Status</label>
+          <select id="f-status">
+            <option value="Aberto">Aberto</option>
+            <option value="Pago">Pago</option>
+            <option value="Cancelado">Cancelado</option>
+          </select>
+        </div>
+        <div>
+          <label>Carteira / Empresa</label>
+          <input type="text" id="f-carteira" placeholder="Ex: Banco XYZ, Cliente ABC" list="carteira-list">
+          <datalist id="carteira-list"></datalist>
+        </div>
+        <div></div>
+        <div style="grid-column:1/-1;"><label>Observações</label><textarea id="f-obs" placeholder="Notas adicionais sobre este contrato..."></textarea></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:20px;">
+        <button class="btn btn-primary" onclick="saveContrato()">💾 Salvar Contrato</button>
+        <button class="btn btn-secondary" onclick="resetForm()">🗑️ Limpar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIG PAGE -->
+  <div id="page-config" style="display:none;" class="fade-in">
+    <h2 style="font-size:26px;margin-bottom:6px;">Configuração de Meta</h2>
+    <p style="color:var(--text2);font-size:14px;margin-bottom:24px;">Defina sua meta mensal de recebimento.</p>
+    <div class="card card-md" style="max-width:480px;margin-bottom:20px;">
+      <h3 style="font-size:17px;margin-bottom:16px;">🎯 Meta Mensal</h3>
+      <label>Valor da Meta (R$)</label>
+      <input type="text" id="cfg-meta" placeholder="Ex: 10.000,00" oninput="maskMoney(this)">
+      <p style="font-size:12px;color:var(--text2);margin-top:6px;">Usada para calcular o progresso no dashboard.</p>
+    </div>
+    <div class="card card-md" style="max-width:480px;margin-bottom:20px;">
+      <h3 style="font-size:17px;margin-bottom:8px;">💼 Tabela de Comissão Escalonada</h3>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:14px;">Calculada automaticamente sobre o Total Pago (Caixa) no período.</p>
+      <div style="display:grid;gap:4px;">
+        <div style="display:flex;justify-content:space-between;padding:7px 12px;background:var(--bg2);border-radius:7px;font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.3px;">
+          <span>Faixa de Recebimento</span><span>Comissão</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-radius:7px;background:color-mix(in srgb,var(--red) 8%,transparent);color:var(--red);">
+          <span>Até R$ 3.499,99</span><span style="font-weight:700;">0%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-radius:7px;background:color-mix(in srgb,var(--yellow) 8%,transparent);color:var(--yellow);">
+          <span>R$ 3.500,00 – R$ 4.999,99</span><span style="font-weight:700;">1,5%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-radius:7px;background:color-mix(in srgb,var(--accent) 8%,transparent);color:var(--accent);">
+          <span>R$ 5.000,00 – R$ 7.499,99</span><span style="font-weight:700;">3%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-radius:7px;background:color-mix(in srgb,var(--green) 8%,transparent);color:var(--green);">
+          <span>Acima de R$ 7.500,00</span><span style="font-weight:700;">5%</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-primary" onclick="saveConfig()">💾 Salvar Configurações</button>
+      <button class="btn btn-danger" onclick="clearAllData()">🗑️ Limpar Todos os Dados</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>✏️ Editar Contrato</h2>
+      <button class="btn-icon" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div><label>Nome</label><input type="text" id="m-nome"></div>
+        <div><label>CPF/CNPJ</label><input type="text" id="m-cpf" maxlength="18" oninput="maskCpfCnpj(this)"></div>
+        <div><label>Data</label><input type="date" id="m-data"></div>
+        <div><label>Nº Contrato</label><input type="text" id="m-contrato"></div>
+        <div><label>Valor (R$)</label><input type="text" id="m-valor" oninput="maskMoney(this)"></div>
+        <div><label>Vencimento</label><input type="date" id="m-vencimento"></div>
+        <div><label>Tipo</label>
+          <select id="m-tipo">
+            <option>Parcela Comum</option>
+            <option>Quitação À Vista</option>
+            <option>Quitação Parcelada</option>
+          </select>
+        </div>
+        <div><label>Status</label><select id="m-status"><option>Aberto</option><option>Pago</option><option>Cancelado</option></select></div>
+        <div><label>Carteira</label><input type="text" id="m-carteira" list="carteira-list"></div>
+        <div></div>
+        <div style="grid-column:1/-1;"><label>Observações</label><textarea id="m-obs"></textarea></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:18px;">
+        <button class="btn btn-primary" onclick="saveEdit()">💾 Salvar</button>
+        <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal" style="max-width:380px;">
+    <div class="modal-header"><h2>⚠️ Confirmar</h2></div>
+    <div class="modal-body">
+      <p style="margin-bottom:20px;font-size:15px;" id="confirmMsg">Tem certeza?</p>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-danger" id="confirmOk">Confirmar</button>
+        <button class="btn btn-secondary" onclick="document.getElementById('confirmModal').classList.remove('open')">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating dropdown (appended to body) -->
+<div class="menu-dropdown" id="globalMenu">
+  <button id="gmEdit" onclick="globalMenuAction('edit')">✏️ Editar</button>
+  <button class="danger" id="gmDelete" onclick="globalMenuAction('delete')">🗑️ Excluir</button>
+</div>
+
+<script>
+// ====== STATE ======
+let contratos = [];
+let config = { meta: 0 };
+let currentFilter = 'mes';
+let filterFrom = null, filterTo = null;
+let tableFilter = 'mes';
+let tableFilterFrom = null, tableFilterTo = null;
+let editingId = null;
+let activeCarteira = 'all';
+let globalMenuTargetId = null;
+
+// ====== INIT ======
+function init() {
+  contratos = JSON.parse(localStorage.getItem('gb_contratos') || '[]');
+  config = JSON.parse(localStorage.getItem('gb_config') || '{"meta":0}');
+  const dark = localStorage.getItem('gb_dark') === '1';
+  if (dark) { document.documentElement.setAttribute('data-theme','dark'); document.getElementById('darkToggle').checked = true; }
+
+  document.getElementById('f-data').value = today();
+  document.getElementById('f-vencimento').value = today();
+  document.getElementById('cfg-meta').value = config.meta ? formatMoney(config.meta) : '';
+
+  const now = new Date();
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+  const monthEnd = new Date(now.getFullYear(), now.getMonth()+1, 0).toISOString().split('T')[0];
+  document.getElementById('filterFrom').value = monthStart;
+  document.getElementById('filterTo').value = monthEnd;
+  document.getElementById('tableFilterFrom').value = monthStart;
+  document.getElementById('tableFilterTo').value = monthEnd;
+
+  updateCarteiraPills();
+  renderDashboard();
+  renderTable();
+
+  // Close global menu on outside click
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('globalMenu');
+    if (!menu.contains(e.target) && !e.target.classList.contains('btn-icon')) {
+      menu.classList.remove('open');
+      menu.style.display = 'none';
+      globalMenuTargetId = null;
+    }
+  });
+}
+
+// ====== HELPERS ======
+function today() { return new Date().toISOString().split('T')[0]; }
+function formatMoney(v) { return Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function parseMoney(str) { if (!str) return 0; return parseFloat(String(str).replace(/\./g,'').replace(',','.')) || 0; }
+function formatDate(d) { if (!d) return ''; const [y,m,dd] = d.split('-'); return `${dd}/${m}/${y}`; }
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
+function save() { localStorage.setItem('gb_contratos', JSON.stringify(contratos)); }
+function escHtml(str) { return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function diffDays(dateStr) {
+  if (!dateStr) return 0;
+  const venc = new Date(dateStr + 'T00:00:00');
+  const now = new Date(today() + 'T00:00:00');
+  return Math.floor((now - venc) / 86400000);
+}
+
+// ====== MASKS ======
+function maskMoney(el) {
+  let v = el.value.replace(/\D/g,'');
+  v = (parseInt(v,10)/100).toFixed(2);
+  el.value = isNaN(v) ? '' : Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2});
+}
+function maskCpfCnpj(el) {
+  let v = el.value.replace(/\D/g,'');
+  if (v.length <= 11) {
+    v = v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+  } else {
+    v = v.replace(/^(\d{2})(\d)/,'$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1/$2').replace(/(\d{4})(\d)/,'$1-$2');
+  }
+  el.value = v;
+}
+
+// ====== HO LOGIC ======
+/*
+  Parcela Comum:      1-60d→5%, 61-90→7.5%, 91-120→9%, 121-150→11%, 151-180→13%, >180→18%
+  Quitação À Vista:   181-360→20%, 361-720→23%, 721-1080→27%, >1080→32%
+  Quitação Parcelada: 181-720→18%, >720→22.5%
+*/
+function calcHO(contrato) {
+  if (contrato.status !== 'Aberto') return { taxa: 0, valor: 0, diasAtraso: 0 };
+  const dias = diffDays(contrato.vencimento);
+  if (dias <= 0) return { taxa: 0, valor: 0, diasAtraso: 0 };
+
+  const valor = parseMoney(contrato.valor);
+  let taxa = 0;
+  const tipo = contrato.tipo || 'Parcela Comum';
+
+  if (tipo === 'Parcela Comum') {
+    if      (dias <= 60)  taxa = 0.05;
+    else if (dias <= 90)  taxa = 0.075;
+    else if (dias <= 120) taxa = 0.09;
+    else if (dias <= 150) taxa = 0.11;
+    else if (dias <= 180) taxa = 0.13;
+    else                  taxa = 0.18;
+  } else if (tipo === 'Quitação À Vista') {
+    if      (dias >= 181 && dias <= 360)  taxa = 0.20;
+    else if (dias >= 361 && dias <= 720)  taxa = 0.23;
+    else if (dias >= 721 && dias <= 1080) taxa = 0.27;
+    else if (dias > 1080)                 taxa = 0.32;
+    // Menos de 181 dias sem taxa HO para quitação
+  } else if (tipo === 'Quitação Parcelada') {
+    if      (dias >= 181 && dias <= 720) taxa = 0.18;
+    else if (dias > 720)                 taxa = 0.225;
+  }
+
+  return {
+    taxa,
+    valor: valor * taxa,
+    diasAtraso: dias
+  };
+}
+
+// ====== COMMISSION LOGIC (ESCALONADA) ======
+function calcComissao(totalPago) {
+  let taxa = 0;
+  let faixa = '';
+  if (totalPago < 3500) {
+    taxa = 0; faixa = 'Abaixo da faixa';
+  } else if (totalPago < 5000) {
+    taxa = 0.015; faixa = '1,5%';
+  } else if (totalPago < 7500) {
+    taxa = 0.03; faixa = '3%';
+  } else {
+    taxa = 0.05; faixa = '5%';
+  }
+  return { taxa, valor: totalPago * taxa, faixa };
+}
+
+function renderCommissionTiers(totalPago) {
+  const tiers = [
+    { label: 'Até R$ 3.499,99', pct: '0%', min: 0, max: 3499.99 },
+    { label: 'R$ 3.500 – R$ 4.999,99', pct: '1,5%', min: 3500, max: 4999.99 },
+    { label: 'R$ 5.000 – R$ 7.499,99', pct: '3%', min: 5000, max: 7499.99 },
+    { label: 'Acima de R$ 7.500,00', pct: '5%', min: 7500, max: Infinity },
+  ];
+  const container = document.getElementById('commission-tiers');
+  if (!container) return;
+  container.innerHTML = tiers.map(t => {
+    const isActive = totalPago >= t.min && totalPago <= t.max;
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-radius:7px;margin-bottom:3px;font-size:12.5px;
+      ${isActive ? 'background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);font-weight:700;color:var(--accent);'
+                 : 'background:var(--bg2);color:var(--text2);'}">
+      <span>${isActive ? '▶ ' : ''}${t.label}</span><span>${t.pct}</span>
+    </div>`;
+  }).join('');
+}
+
+// ====== DARK MODE ======
+function toggleDark() {
+  const isDark = document.getElementById('darkToggle').checked;
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  localStorage.setItem('gb_dark', isDark ? '1' : '0');
+}
+
+// ====== PAGES ======
+function showPage(page) {
+  ['dashboard','contratos','novo','config'].forEach(p => {
+    document.getElementById('page-'+p).style.display = 'none';
+    document.getElementById('nav-'+p)?.classList.remove('active');
+  });
+  document.getElementById('page-'+page).style.display = '';
+  document.getElementById('page-'+page).className = 'fade-in';
+  document.getElementById('nav-'+page)?.classList.add('active');
+  if (page === 'dashboard') renderDashboard();
+  if (page === 'contratos') { updateCarteiraPills(); renderTable(); }
+  if (page === 'novo' && !editingId) { document.getElementById('f-data').value = today(); }
+}
+
+// ====== DASHBOARD FILTERS ======
+function setFilter(type, el) {
+  document.querySelectorAll('.filter-tabs:first-of-type .filter-tab, #page-dashboard .filter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  currentFilter = type;
+  filterFrom = null; filterTo = null;
+  renderDashboard();
+}
+
+function applyCustomFilter() {
+  filterFrom = document.getElementById('filterFrom').value;
+  filterTo = document.getElementById('filterTo').value;
+  currentFilter = 'custom';
+  document.querySelectorAll('#page-dashboard .filter-tab').forEach(t => t.classList.remove('active'));
+  renderDashboard();
+}
+
+function getFilteredByPeriod(list, filter, from, to) {
+  const now = new Date();
+  return list.filter(c => {
+    const d = new Date(c.data + 'T00:00:00');
+    if (filter === 'dia') return c.data === today();
+    if (filter === 'semana') {
+      const start = new Date(now); start.setDate(now.getDate() - now.getDay()); start.setHours(0,0,0,0);
+      const end = new Date(start); end.setDate(start.getDate() + 6);
+      return d >= start && d <= end;
+    }
+    if (filter === 'mes') {
+      return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+    }
+    if (filter === 'custom' && from && to) return c.data >= from && c.data <= to;
+    return true;
+  });
+}
+
+// ====== TABLE FILTERS ======
+function setTableFilter(type, el) {
+  document.querySelectorAll('#table-filter-tabs .filter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  tableFilter = type;
+  tableFilterFrom = null; tableFilterTo = null;
+  renderTable();
+}
+
+function applyTableCustomFilter() {
+  tableFilterFrom = document.getElementById('tableFilterFrom').value;
+  tableFilterTo = document.getElementById('tableFilterTo').value;
+  tableFilter = 'custom';
+  document.querySelectorAll('#table-filter-tabs .filter-tab').forEach(t => t.classList.remove('active'));
+  renderTable();
+}
+
+// ====== DASHBOARD RENDER ======
+function renderDashboard() {
+  const filtered = getFilteredByPeriod(contratos, currentFilter, filterFrom, filterTo);
+  const pagos = filtered.filter(c=>c.status==='Pago');
+  const abertos = filtered.filter(c=>c.status==='Aberto');
+  const cancelados = filtered.filter(c=>c.status==='Cancelado');
+  const ativos = filtered.filter(c=>c.status!=='Cancelado');
+
+  const sumPago = pagos.reduce((a,c)=>a+parseMoney(c.valor),0);
+  const sumAberto = abertos.reduce((a,c)=>a+parseMoney(c.valor),0);
+  const sumCancelado = cancelados.reduce((a,c)=>a+parseMoney(c.valor),0);
+  const projecao = sumPago + sumAberto;
+
+  // HO total sobre contratos em aberto do período
+  const totalHO = filtered.reduce((a,c)=>{ const h = calcHO(c); return a + h.valor; }, 0);
+
+  document.getElementById('card-pago').textContent = 'R$ '+formatMoney(sumPago);
+  document.getElementById('card-pago-count').textContent = pagos.length+' contrato'+(pagos.length!==1?'s':'');
+  document.getElementById('card-aberto').textContent = 'R$ '+formatMoney(sumAberto);
+  document.getElementById('card-aberto-count').textContent = abertos.length+' contrato'+(abertos.length!==1?'s':'');
+  document.getElementById('card-cancelado').textContent = 'R$ '+formatMoney(sumCancelado);
+  document.getElementById('card-cancelado-count').textContent = cancelados.length+' contrato'+(cancelados.length!==1?'s':'');
+  document.getElementById('card-ativos').textContent = ativos.length;
+  document.getElementById('card-projecao').textContent = 'Projeção: R$ '+formatMoney(projecao);
+  document.getElementById('card-ho').textContent = 'R$ '+formatMoney(totalHO);
+  document.getElementById('card-ho-sub').textContent = abertos.length+' boleto'+(abertos.length!==1?'s':'')+ ' em aberto';
+  document.getElementById('card-unidades').textContent = filtered.length;
+  document.getElementById('card-unidades-sub').textContent = (filtered.length)+' contrato'+(filtered.length!==1?'s':'')+' no período';
+
+  // Meta
+  const meta = config.meta || 0;
+  const pct = meta > 0 ? Math.min((sumPago/meta)*100, 100) : 0;
+  document.getElementById('meta-pago-val').textContent = 'R$ '+formatMoney(sumPago);
+  document.getElementById('meta-total-val').textContent = 'R$ '+formatMoney(meta);
+  document.getElementById('meta-bar').style.width = pct+'%';
+  document.getElementById('meta-percent-label').textContent = pct.toFixed(1)+'%';
+  const falta = Math.max(meta - sumPago, 0);
+  document.getElementById('meta-falta').textContent = falta > 0 ? 'Faltam R$ '+formatMoney(falta)+' para a meta' : '🎉 Meta atingida!';
+
+  // Comissão escalonada
+  const com = calcComissao(sumPago);
+  document.getElementById('comissao-val').textContent = 'R$ '+formatMoney(com.valor);
+  document.getElementById('comissao-tier-badge').textContent = com.faixa || '0%';
+  renderCommissionTiers(sumPago);
+
+  // Overdue alert (todos os contratos, não só do período)
+  const overdueList = contratos.filter(c=>c.status==='Aberto' && c.vencimento && c.vencimento < today());
+  const alertEl = document.getElementById('overdue-alert');
+  if (overdueList.length > 0) {
+    alertEl.style.display = '';
+    document.getElementById('overdue-title').textContent = overdueList.length+' boleto'+(overdueList.length!==1?'s vencidos':' vencido');
+    const sumOverdue = overdueList.reduce((a,c)=>a+parseMoney(c.valor),0);
+    document.getElementById('overdue-desc').textContent = 'Total vencido: R$ '+formatMoney(sumOverdue);
+  } else { alertEl.style.display = 'none'; }
+
+  const labels = {dia:'Hoje', semana:'Esta semana', mes:'Este mês', todos:'Todos os registros', custom:'Período personalizado'};
+  document.getElementById('dash-period-label').textContent = labels[currentFilter]||'';
+}
+
+// ====== TABLE RENDER ======
+function updateCarteiraPills() {
+  const carteiras = [...new Set(contratos.map(c=>c.carteira).filter(Boolean))];
+  const container = document.getElementById('carteira-pills');
+  container.innerHTML = `<button class="pill ${activeCarteira==='all'?'active':''}" onclick="filterCarteira('all',this)">Todas</button>`;
+  carteiras.forEach(k => {
+    const btn = document.createElement('button');
+    btn.className = 'pill'+(activeCarteira===k?' active':'');
+    btn.textContent = k;
+    btn.onclick = function(){ filterCarteira(k, this); };
+    container.appendChild(btn);
+  });
+  const dl = document.getElementById('carteira-list');
+  dl.innerHTML = carteiras.map(k=>`<option value="${escHtml(k)}">`).join('');
+}
+
+function filterCarteira(val, el) {
+  activeCarteira = val;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  renderTable();
+}
+
+function getTableFiltered() {
+  let list = getFilteredByPeriod(contratos, tableFilter, tableFilterFrom, tableFilterTo);
+  const search = document.getElementById('searchInput')?.value.toLowerCase()||'';
+  const statusF = document.getElementById('statusFilter')?.value||'';
+  const tipoF = document.getElementById('tipoFilter')?.value||'';
+  return list.filter(c => {
+    if (activeCarteira !== 'all' && c.carteira !== activeCarteira) return false;
+    if (statusF && c.status !== statusF) return false;
+    if (tipoF && c.tipo !== tipoF) return false;
+    if (search) {
+      const hay = (c.nome+c.cpf+c.contrato+(c.carteira||'')).toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    return true;
+  });
+}
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  if (!tbody) return;
+  const filtered = getTableFiltered();
+  const todayStr = today();
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="13"><div class="empty-state"><div class="icon">📄</div><p>Nenhum contrato encontrado</p></div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(c => {
+    const isOverdue = c.status==='Aberto' && c.vencimento && c.vencimento < todayStr;
+    const ho = calcHO(c);
+    const statusBadge = {
+      'Pago': '<span class="badge badge-green">✓ Pago</span>',
+      'Aberto': isOverdue ? '<span class="badge badge-red">⚠ Vencido</span>' : '<span class="badge badge-yellow">● Aberto</span>',
+      'Cancelado': '<span class="badge badge-red">✕ Cancelado</span>'
+    }[c.status]||c.status;
+
+    const tipoColor = {
+      'Quitação À Vista': 'badge-blue',
+      'Quitação Parcelada': 'badge-purple',
+      'Parcela Comum': ''
+    }[c.tipo]||'';
+    const tipoBadge = tipoColor
+      ? `<span class="badge ${tipoColor}">${escHtml(c.tipo)}</span>`
+      : `<span class="badge" style="background:var(--bg2);color:var(--text2);">${escHtml(c.tipo||'Parcela Comum')}</span>`;
+
+    const obsIcon = c.obs ? `<div class="tooltip-wrap"><span style="cursor:default;font-size:16px;">💬</span><div class="tooltip-content">${escHtml(c.obs)}</div></div>` : '<span style="color:var(--border);">—</span>';
+
+    const hoStr = ho.taxa > 0 ? `<span class="ho-val">${(ho.taxa*100).toFixed(1)}%</span>` : '<span style="color:var(--border);">—</span>';
+    const hoValStr = ho.valor > 0 ? `<span class="ho-val">R$ ${formatMoney(ho.valor)}</span>` : '<span style="color:var(--border);">—</span>';
+    const diasStr = ho.diasAtraso > 0 ? `<span style="color:var(--red);font-weight:600;">${ho.diasAtraso}d</span>` : '<span style="color:var(--text2);">—</span>';
+
+    return `<tr class="${isOverdue?'overdue':''}" data-id="${c.id}">
+      <td><span style="font-weight:600;">${escHtml(c.nome)}</span></td>
+      <td style="color:var(--text2);font-size:13px;">${escHtml(c.cpf)}</td>
+      <td style="font-family:monospace;font-size:13px;">${escHtml(c.contrato)}</td>
+      <td style="font-weight:600;color:var(--green);">R$ ${formatMoney(parseMoney(c.valor))}</td>
+      <td style="color:${isOverdue?'var(--red)':'var(--text2)'};font-weight:${isOverdue?'600':'400'};">${formatDate(c.vencimento)}</td>
+      <td>${diasStr}</td>
+      <td>${hoStr}</td>
+      <td>${hoValStr}</td>
+      <td>${tipoBadge}</td>
+      <td>${statusBadge}</td>
+      <td style="color:var(--text2);font-size:13px;">${escHtml(c.carteira||'—')}</td>
+      <td style="text-align:center;">${obsIcon}</td>
+      <td style="text-align:center;">
+        <button class="btn-icon" onclick="openGlobalMenu('${c.id}',event)">···</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ====== GLOBAL MENU (fixed position, body-level) ======
+function openGlobalMenu(id, e) {
+  e.stopPropagation();
+  globalMenuTargetId = id;
+  const menu = document.getElementById('globalMenu');
+  menu.style.display = 'block';
+  menu.classList.add('open');
+
+  const btn = e.currentTarget;
+  const rect = btn.getBoundingClientRect();
+  let top = rect.bottom + 6;
+  let left = rect.right - 150;
+  if (left < 8) left = 8;
+  if (top + 90 > window.innerHeight) top = rect.top - 90;
+  menu.style.top = top + 'px';
+  menu.style.left = left + 'px';
+}
+
+function globalMenuAction(action) {
+  const id = globalMenuTargetId;
+  const menu = document.getElementById('globalMenu');
+  menu.classList.remove('open');
+  menu.style.display = 'none';
+  globalMenuTargetId = null;
+  if (!id) return;
+  if (action === 'edit') openEdit(id);
+  if (action === 'delete') deleteContrato(id);
+}
+
+// ====== CRUD ======
+function saveContrato() {
+  const nome = document.getElementById('f-nome').value.trim();
+  const cpf = document.getElementById('f-cpf').value.trim();
+  const contrato = document.getElementById('f-contrato').value.trim();
+  const valor = document.getElementById('f-valor').value.trim();
+  const vencimento = document.getElementById('f-vencimento').value;
+  if (!nome || !cpf || !contrato || !valor || !vencimento) {
+    alert('Preencha os campos obrigatórios: Nome, CPF/CNPJ, Nº Contrato, Valor e Vencimento.');
+    return;
+  }
+  const novo = {
+    id: uid(), nome, cpf, contrato, valor,
+    data: document.getElementById('f-data').value || today(),
+    vencimento,
+    tipo: document.getElementById('f-tipo').value,
+    status: document.getElementById('f-status').value,
+    carteira: document.getElementById('f-carteira').value.trim(),
+    obs: document.getElementById('f-obs').value.trim(),
+  };
+  contratos.unshift(novo);
+  save(); resetForm(); updateCarteiraPills(); showPage('contratos');
+}
+
+function resetForm() {
+  ['f-nome','f-cpf','f-contrato','f-valor','f-carteira','f-obs'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-data').value = today();
+  document.getElementById('f-vencimento').value = today();
+  document.getElementById('f-tipo').value = 'Parcela Comum';
+  document.getElementById('f-status').value = 'Aberto';
+  document.getElementById('form-title').textContent = 'Novo Contrato';
+  editingId = null;
+}
+
+function openEdit(id) {
+  const c = contratos.find(x=>x.id===id);
+  if (!c) return;
+  editingId = id;
+  document.getElementById('m-nome').value = c.nome||'';
+  document.getElementById('m-cpf').value = c.cpf||'';
+  document.getElementById('m-data').value = c.data||'';
+  document.getElementById('m-contrato').value = c.contrato||'';
+  document.getElementById('m-valor').value = c.valor||'';
+  document.getElementById('m-vencimento').value = c.vencimento||'';
+  document.getElementById('m-tipo').value = c.tipo||'Parcela Comum';
+  document.getElementById('m-status').value = c.status||'Aberto';
+  document.getElementById('m-carteira').value = c.carteira||'';
+  document.getElementById('m-obs').value = c.obs||'';
+  document.getElementById('editModal').classList.add('open');
+}
+
+function saveEdit() {
+  const c = contratos.find(x=>x.id===editingId);
+  if (!c) return;
+  c.nome = document.getElementById('m-nome').value.trim();
+  c.cpf = document.getElementById('m-cpf').value.trim();
+  c.data = document.getElementById('m-data').value;
+  c.contrato = document.getElementById('m-contrato').value.trim();
+  c.valor = document.getElementById('m-valor').value.trim();
+  c.vencimento = document.getElementById('m-vencimento').value;
+  c.tipo = document.getElementById('m-tipo').value;
+  c.status = document.getElementById('m-status').value;
+  c.carteira = document.getElementById('m-carteira').value.trim();
+  c.obs = document.getElementById('m-obs').value.trim();
+  save(); closeModal(); updateCarteiraPills(); renderTable(); renderDashboard();
+}
+
+function deleteContrato(id) {
+  const c = contratos.find(x=>x.id===id);
+  const modal = document.getElementById('confirmModal');
+  document.getElementById('confirmMsg').textContent = `Excluir o contrato de "${c?.nome}"? Esta ação não pode ser desfeita.`;
+  document.getElementById('confirmOk').onclick = function() {
+    contratos = contratos.filter(x=>x.id!==id);
+    save(); updateCarteiraPills(); renderTable(); renderDashboard();
+    modal.classList.remove('open');
+  };
+  modal.classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('editModal').classList.remove('open');
+  editingId = null;
+}
+
+// ====== CONFIG ======
+function saveConfig() {
+  config.meta = parseMoney(document.getElementById('cfg-meta').value);
+  localStorage.setItem('gb_config', JSON.stringify(config));
+  renderDashboard();
+  alert('✅ Configurações salvas!');
+}
+
+function clearAllData() {
+  const modal = document.getElementById('confirmModal');
+  document.getElementById('confirmMsg').textContent = '⚠️ Isso vai apagar TODOS os contratos e configurações. Tem certeza?';
+  document.getElementById('confirmOk').onclick = function() {
+    localStorage.clear(); contratos = []; config = {meta:0};
+    modal.classList.remove('open'); init(); showPage('dashboard');
+  };
+  modal.classList.add('open');
+}
+
+// ====== EXPORT CSV (filtered) ======
+function exportCSV() {
+  const filtered = getTableFiltered();
+  const headers = ['Nome','CPF/CNPJ','Data','Nº Contrato','Valor','Vencimento','Dias Atraso','Taxa HO (%)','Valor HO','Tipo','Status','Carteira','Observações'];
+  const rows = filtered.map(c => {
+    const ho = calcHO(c);
+    return [
+      c.nome, c.cpf, c.data, c.contrato,
+      'R$ '+formatMoney(parseMoney(c.valor)),
+      c.vencimento,
+      ho.diasAtraso > 0 ? ho.diasAtraso : '',
+      ho.taxa > 0 ? (ho.taxa*100).toFixed(1)+'%' : '',
+      ho.valor > 0 ? 'R$ '+formatMoney(ho.valor) : '',
+      c.tipo, c.status, c.carteira||'', c.obs||''
+    ].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',');
+  });
+  const csv = [headers.join(','), ...rows].join('\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `gestao-bia-${today()}.csv`; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Close modals on overlay click
+document.getElementById('editModal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+document.getElementById('confirmModal').addEventListener('click', function(e){ if(e.target===this) this.classList.remove('open'); });
+
+init();
+</script>
+</body>
+</html>
