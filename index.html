@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f0f0ed;--bg2:#e8e8e4;--card:#fafaf8;--border:#ddddd8;--text:#1a1a1a;--text2:#6b6b6b;--accent:#2563eb;--accent2:#1d4ed8;--green:#16a34a;--red:#dc2626;--yellow:#ca8a04;--purple:#7c3aed;--shadow:0 1px 3px rgba(0,0,0,.07),0 4px 12px rgba(0,0,0,.05);--shadow-lg:0 8px 32px rgba(0,0,0,.13),0 1px 4px rgba(0,0,0,.06)}
-[data-theme="dark"]{--bg:#0f1117;--bg2:#181c27;--card:#1e2232;--border:#2d3348;--text:#f0f0ed;--text2:#9099b0;--accent:#3b82f6;--accent2:#60a5fa;--green:#22c55e;--red:#f87171;--yellow:#fbbf24;--purple:#a78bfa;--shadow:0 1px 3px rgba(0,0,0,.3),0 4px 12px rgba(0,0,0,.2);--shadow-lg:0 8px 32px rgba(0,0,0,.45),0 1px 4px rgba(0,0,0,.25)}
+:root{--bg:#f0f0ed;--bg2:#e8e8e4;--card:#fafaf8;--border:#ddddd8;--text:#1a1a1a;--text2:#6b6b6b;--accent:#2563eb;--accent2:#1d4ed8;--green:#16a34a;--red:#dc2626;--yellow:#ca8a04;--purple:#7c3aed;--orange:#ea580c;--shadow:0 1px 3px rgba(0,0,0,.07),0 4px 12px rgba(0,0,0,.05);--shadow-lg:0 8px 32px rgba(0,0,0,.13),0 1px 4px rgba(0,0,0,.06)}
+[data-theme="dark"]{--bg:#0f1117;--bg2:#181c27;--card:#1e2232;--border:#2d3348;--text:#f0f0ed;--text2:#9099b0;--accent:#3b82f6;--accent2:#60a5fa;--green:#22c55e;--red:#f87171;--yellow:#fbbf24;--purple:#a78bfa;--orange:#fb923c;--shadow:0 1px 3px rgba(0,0,0,.3),0 4px 12px rgba(0,0,0,.2);--shadow-lg:0 8px 32px rgba(0,0,0,.45),0 1px 4px rgba(0,0,0,.25)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
 h1,h2,h3{font-family:'DM Serif Display',serif}
@@ -61,7 +61,7 @@ tr.selected td{background:color-mix(in srgb,var(--accent) 8%,transparent)!import
 .badge-blue{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}
 .badge-purple{background:color-mix(in srgb,var(--purple) 14%,transparent);color:var(--purple)}
 .badge-gray{background:var(--bg2);color:var(--text2)}
-.badge-orange{background:color-mix(in srgb,#ea580c 14%,transparent);color:#ea580c}
+.badge-orange{background:color-mix(in srgb,var(--orange) 14%,transparent);color:var(--orange)}
 .toggle{position:relative;width:40px;height:22px;cursor:pointer}
 .toggle input{opacity:0;width:0;height:0}
 .toggle-track{position:absolute;inset:0;background:var(--border);border-radius:11px;transition:background .3s}
@@ -85,7 +85,7 @@ tr.selected td{background:color-mix(in srgb,var(--accent) 8%,transparent)!import
 .modal-header{padding:22px 24px 0;display:flex;align-items:center;justify-content:space-between}
 .modal-body{padding:20px 24px 24px}
 .modal-header h2{font-size:20px}
-.close-btn{padding:6px 10px;border-radius:7px;background:var(--bg2);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:18px;line-height:1;font-family:sans-serif;transition:all .2s}
+.close-btn{padding:6px 10px;border-radius:7px;background:var(--bg2);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:18px;line-height:1;transition:all .2s}
 .close-btn:hover{background:var(--border)}
 .filter-tabs{display:flex;gap:3px;background:var(--bg2);border-radius:9px;padding:3px}
 .filter-tab{padding:6px 14px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--text2);transition:all .2s;white-space:nowrap}
@@ -103,9 +103,17 @@ tr.selected td{background:color-mix(in srgb,var(--accent) 8%,transparent)!import
 .bulk-bar{display:none;align-items:center;gap:12px;padding:10px 16px;background:color-mix(in srgb,var(--accent) 10%,transparent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:10px;margin-bottom:12px;font-size:13px;font-weight:500}
 .bulk-bar.show{display:flex}
 input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
-/* Dashboard carteira pills */
 .dash-carteira-pill{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text2);transition:all .2s;white-space:nowrap}
 .dash-carteira-pill.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Bonus card */
+.bonus-tier{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;margin-bottom:4px;font-size:13px}
+.bonus-tier.reached{background:color-mix(in srgb,var(--green) 12%,transparent);border:1px solid color-mix(in srgb,var(--green) 30%,transparent);font-weight:700;color:var(--green)}
+.bonus-tier.next{background:color-mix(in srgb,var(--yellow) 10%,transparent);border:1px solid color-mix(in srgb,var(--yellow) 30%,transparent);font-weight:600;color:var(--yellow)}
+.bonus-tier.pending{background:var(--bg2);color:var(--text2)}
+/* Section tabs */
+.sec-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:20px}
+.sec-tab{padding:10px 18px;font-size:14px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--text2);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.sec-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 @media(max-width:768px){.sidebar{width:100%;height:auto;position:relative;flex-direction:row;flex-wrap:wrap;padding:12px}.main{margin-left:0;padding:16px}}
 </style>
 </head>
@@ -152,14 +160,14 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:po
     </div>
   </div>
 
-  <!-- DASHBOARD CARTEIRA FILTER -->
+  <!-- Carteira filter -->
   <div style="margin-bottom:16px">
-    <p style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Filtrar Dashboard por Carteira</p>
+    <p style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Filtrar por Carteira</p>
     <div id="dash-carteira-pills" style="display:flex;gap:8px;flex-wrap:wrap"></div>
   </div>
 
   <!-- Row 1: financial stats -->
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:14px">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:14px">
     <div class="card card-sm">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font-size:20px">💰</span><span class="badge badge-green">Pago</span></div>
       <div class="stat-value" id="card-pago" style="color:var(--green)">R$ 0,00</div>
@@ -184,22 +192,24 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:po
       <div class="stat-label">Total Gerado</div>
       <div class="stat-sub" id="card-gerado-sub">Pago + Aberto + Cancelado</div>
     </div>
+    <!-- HO Gerado (sobre pagos) -->
     <div class="card card-sm">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font-size:20px">📈</span><span class="badge badge-purple">HO</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font-size:20px">📈</span><span class="badge badge-purple">H.O</span></div>
       <div class="stat-value" id="card-ho" style="color:var(--purple)">R$ 0,00</div>
-      <div class="stat-label">Total HO Gerado</div>
-      <div class="stat-sub" id="card-ho-sub">Boletos em aberto</div>
+      <div class="stat-label">H.O sobre Pagos</div>
+      <div class="stat-sub" id="card-ho-sub">Base do escalonamento</div>
     </div>
     <div class="card card-sm" style="cursor:pointer" onclick="showVencidos()">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font-size:20px">⚠️</span><span class="badge badge-orange">Vencidos</span></div>
-      <div class="stat-value" id="card-vencidos" style="color:#ea580c">0</div>
+      <div class="stat-value" id="card-vencidos" style="color:var(--orange)">0</div>
       <div class="stat-label">Boletos Vencidos</div>
       <div class="stat-sub" id="card-vencidos-sub">Clique para ver</div>
     </div>
   </div>
 
-  <!-- Row 2: meta + commission -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+  <!-- Row 2: meta + comissão + bônus -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px">
+    <!-- Meta -->
     <div class="card card-md">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
         <h3 style="font-size:16px">🎯 Meta Mensal</h3>
@@ -212,16 +222,41 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:po
       <div class="progress-track"><div class="progress-fill" id="meta-bar" style="width:0%;background:var(--green)"></div></div>
       <p style="font-size:12px;color:var(--text2);margin-top:8px" id="meta-falta">Configure a meta nas configurações</p>
     </div>
+
+    <!-- Comissão sobre H.O -->
+    <div class="card card-md">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <h3 style="font-size:16px">💼 Comissão (H.O)</h3>
+        <span class="badge badge-purple" id="comissao-tier-badge">0%</span>
+      </div>
+      <p style="font-size:11px;color:var(--text2);margin-bottom:8px">Escalonamento sobre Total H.O dos pagos</p>
+      <div class="stat-value" id="comissao-val" style="font-size:22px;color:var(--purple);margin-bottom:10px">R$ 0,00</div>
+      <div id="commission-tiers"></div>
+    </div>
+
+    <!-- Bônus CX + RK -->
     <div class="card card-md">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <h3 style="font-size:16px">💼 Comissão Escalonada</h3>
-        <span class="badge badge-blue" id="comissao-tier-badge">0%</span>
+        <h3 style="font-size:16px">🏆 Bônus Extras</h3>
+        <span class="badge badge-green" id="bonus-total-badge">R$ 0</span>
       </div>
-      <div class="stat-value" id="comissao-val" style="font-size:22px;color:var(--accent);margin-bottom:10px">R$ 0,00</div>
-      <div id="commission-tiers"></div>
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <div style="flex:1;background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Bônus CX</div>
+          <div style="font-size:20px;font-weight:700;font-family:'DM Serif Display';color:var(--accent)" id="bonus-cx-val">R$ 0</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:2px" id="bonus-cx-label">—</div>
+        </div>
+        <div style="flex:1;background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Bônus RK</div>
+          <div style="font-size:20px;font-weight:700;font-family:'DM Serif Display';color:var(--orange)" id="bonus-rk-val">R$ 0</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:2px" id="bonus-rk-label">—</div>
+        </div>
+      </div>
+      <div id="bonus-next-hint" style="font-size:12px;color:var(--text2);padding:6px 10px;background:var(--bg2);border-radius:6px"></div>
     </div>
   </div>
 
+  <!-- Overdue alert -->
   <div id="overdue-alert" class="card card-sm" style="display:none;border-color:color-mix(in srgb,var(--red) 40%,transparent);background:color-mix(in srgb,var(--red) 6%,transparent)">
     <div style="display:flex;align-items:center;gap:10px">
       <span style="font-size:20px">⚠️</span>
@@ -291,24 +326,22 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:po
 
   <div class="card" style="overflow:visible">
     <div class="table-wrap">
-      <table id="mainTable">
-        <thead>
-          <tr>
-            <th style="width:36px"><input type="checkbox" id="selectAll" onchange="toggleSelectAll(this)" title="Selecionar todos"></th>
-            <th class="sortable" onclick="sortBy('nome')">Nome <span class="sort-icon">↕</span></th>
-            <th>CPF/CNPJ</th>
-            <th class="sortable" onclick="sortBy('contrato')">Nº Contrato <span class="sort-icon">↕</span></th>
-            <th class="sortable" onclick="sortBy('valor')">Valor <span class="sort-icon">↕</span></th>
-            <th class="sortable" onclick="sortBy('vencimento')">Vencimento <span class="sort-icon">↕</span></th>
-            <th class="sortable" onclick="sortBy('diasAtraso')">Dias Atraso <span class="sort-icon">↕</span></th>
-            <th>Taxa HO</th><th>Valor HO</th>
-            <th>Tipo</th><th>Status</th>
-            <th class="sortable" onclick="sortBy('carteira')">Carteira <span class="sort-icon">↕</span></th>
-            <th class="sortable" onclick="sortBy('data')">Cadastro <span class="sort-icon">↕</span></th>
-            <th style="text-align:center">Obs</th>
-            <th style="text-align:center;width:48px"></th>
-          </tr>
-        </thead>
+      <table>
+        <thead><tr>
+          <th style="width:36px"><input type="checkbox" id="selectAll" onchange="toggleSelectAll(this)"></th>
+          <th class="sortable" onclick="sortBy('nome')">Nome <span class="sort-icon">↕</span></th>
+          <th>CPF/CNPJ</th>
+          <th class="sortable" onclick="sortBy('contrato')">Nº Contrato <span class="sort-icon">↕</span></th>
+          <th class="sortable" onclick="sortBy('valor')">Valor <span class="sort-icon">↕</span></th>
+          <th class="sortable" onclick="sortBy('vencimento')">Vencimento <span class="sort-icon">↕</span></th>
+          <th class="sortable" onclick="sortBy('diasAtraso')">Dias Atraso <span class="sort-icon">↕</span></th>
+          <th>Taxa H.O</th><th>Valor H.O</th>
+          <th>Tipo</th><th>Status</th>
+          <th class="sortable" onclick="sortBy('carteira')">Carteira <span class="sort-icon">↕</span></th>
+          <th class="sortable" onclick="sortBy('data')">Cadastro <span class="sort-icon">↕</span></th>
+          <th style="text-align:center">Obs</th>
+          <th style="text-align:center;width:48px"></th>
+        </tr></thead>
         <tbody id="tableBody">
           <tr><td colspan="15"><div class="empty-state"><div class="icon">📄</div><p>Nenhum contrato</p></div></td></tr>
         </tbody>
@@ -362,32 +395,131 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:po
 
 <!-- ===== CONFIG ===== -->
 <div id="page-config" style="display:none" class="fade-in">
-  <h2 style="font-size:26px;margin-bottom:6px">Configuração de Meta</h2>
-  <p style="color:var(--text2);font-size:14px;margin-bottom:24px">Defina sua meta mensal de recebimento.</p>
-  <div class="card card-md" style="max-width:480px;margin-bottom:20px">
-    <h3 style="font-size:17px;margin-bottom:16px">🎯 Meta Mensal</h3>
-    <label>Valor da Meta (R$)</label>
-    <input type="text" id="cfg-meta" placeholder="Ex: 10.000,00" oninput="maskMoney(this)">
-    <p style="font-size:12px;color:var(--text2);margin-top:6px">Usada para calcular o progresso no dashboard.</p>
+  <h2 style="font-size:26px;margin-bottom:6px">Configurações</h2>
+  <p style="color:var(--text2);font-size:14px;margin-bottom:20px">Metas, comissão e bônus editáveis.</p>
+
+  <!-- Section tabs -->
+  <div class="sec-tabs">
+    <button class="sec-tab active" onclick="showConfigTab('meta',this)">🎯 Meta</button>
+    <button class="sec-tab" onclick="showConfigTab('bonus',this)">🏆 Bônus</button>
+    <button class="sec-tab" onclick="showConfigTab('regras',this)">📋 Regras</button>
   </div>
-  <div class="card card-md" style="max-width:480px;margin-bottom:20px">
-    <h3 style="font-size:17px;margin-bottom:8px">💼 Comissão Escalonada</h3>
-    <p style="font-size:12px;color:var(--text2);margin-bottom:14px">Taxa determinada pelo total pago e aplicada individualmente em cada contrato pago.</p>
-    <div style="display:grid;gap:4px">
-      <div style="display:flex;justify-content:space-between;padding:7px 12px;background:var(--bg2);border-radius:7px;font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase"><span>Total Pago → Taxa por contrato</span><span>%</span></div>
-      <div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-radius:7px;background:color-mix(in srgb,var(--red) 8%,transparent);color:var(--red)"><span>Até R$ 3.499,99</span><span style="font-weight:700">0%</span></div>
-      <div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-radius:7px;background:color-mix(in srgb,var(--yellow) 8%,transparent);color:var(--yellow)"><span>R$ 3.500 – R$ 4.999,99</span><span style="font-weight:700">1,5%</span></div>
-      <div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-radius:7px;background:color-mix(in srgb,var(--accent) 8%,transparent);color:var(--accent)"><span>R$ 5.000 – R$ 7.499,99</span><span style="font-weight:700">3%</span></div>
-      <div style="display:flex;justify-content:space-between;padding:8px 12px;font-size:13px;border-radius:7px;background:color-mix(in srgb,var(--green) 8%,transparent);color:var(--green)"><span>Acima de R$ 7.500,00</span><span style="font-weight:700">5%</span></div>
+
+  <!-- META tab -->
+  <div id="cfg-tab-meta">
+    <div class="card card-md" style="max-width:480px;margin-bottom:16px">
+      <h3 style="font-size:17px;margin-bottom:16px">🎯 Meta Mensal</h3>
+      <label>Valor da Meta (R$)</label>
+      <input type="text" id="cfg-meta" placeholder="Ex: 10.000,00" oninput="maskMoney(this)">
+      <p style="font-size:12px;color:var(--text2);margin-top:6px">Base para o progresso no dashboard.</p>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-primary" onclick="saveConfig()">💾 Salvar</button>
+      <button class="btn btn-danger" onclick="clearAllData()">🗑️ Limpar Todos os Dados</button>
     </div>
   </div>
-  <div class="card card-md" style="max-width:480px;margin-bottom:20px">
-    <h3 style="font-size:17px;margin-bottom:8px">⚡ Cancelamento Automático</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.6">Contratos <strong style="color:var(--text)">Aberto</strong> são automaticamente marcados como <strong style="color:var(--red)">Cancelado</strong> após <strong style="color:var(--text)">5 dias</strong> da data de vencimento.</p>
+
+  <!-- BONUS tab -->
+  <div id="cfg-tab-bonus" style="display:none">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:800px">
+      <!-- Bônus CX -->
+      <div class="card card-md">
+        <h3 style="font-size:16px;margin-bottom:4px">💵 Bônus CX (Caixa)</h3>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:16px">Baseado no Total Pago (Caixa) no período</p>
+        <div style="display:grid;gap:10px">
+          <div>
+            <label>Meta CX Nível 1 — Valor do Bônus (R$)</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div><label style="font-size:11px">Meta (R$)</label><input type="text" id="cx-meta1" placeholder="Ex: 5.000,00" oninput="maskMoney(this)"></div>
+              <div><label style="font-size:11px">Bônus (R$)</label><input type="text" id="cx-bonus1" placeholder="Ex: 100,00" oninput="maskMoney(this)"></div>
+            </div>
+          </div>
+          <div>
+            <label>Meta CX Nível 2</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div><label style="font-size:11px">Meta (R$)</label><input type="text" id="cx-meta2" placeholder="Ex: 8.000,00" oninput="maskMoney(this)"></div>
+              <div><label style="font-size:11px">Bônus (R$)</label><input type="text" id="cx-bonus2" placeholder="Ex: 250,00" oninput="maskMoney(this)"></div>
+            </div>
+          </div>
+          <div>
+            <label>Meta CX Nível 3</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div><label style="font-size:11px">Meta (R$)</label><input type="text" id="cx-meta3" placeholder="Ex: 12.000,00" oninput="maskMoney(this)"></div>
+              <div><label style="font-size:11px">Bônus (R$)</label><input type="text" id="cx-bonus3" placeholder="Ex: 500,00" oninput="maskMoney(this)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Bônus RK -->
+      <div class="card card-md">
+        <h3 style="font-size:16px;margin-bottom:4px">🏅 Bônus RK (Ranking)</h3>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:16px">Baseado no Total H.O dos contratos pagos</p>
+        <div style="display:grid;gap:10px">
+          <div>
+            <label>Meta RK Nível 1</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div><label style="font-size:11px">Meta (R$)</label><input type="text" id="rk-meta1" placeholder="Ex: 1.000,00" oninput="maskMoney(this)"></div>
+              <div><label style="font-size:11px">Bônus (R$)</label><input type="text" id="rk-bonus1" placeholder="Ex: 100,00" oninput="maskMoney(this)"></div>
+            </div>
+          </div>
+          <div>
+            <label>Meta RK Nível 2</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div><label style="font-size:11px">Meta (R$)</label><input type="text" id="rk-meta2" placeholder="Ex: 2.000,00" oninput="maskMoney(this)"></div>
+              <div><label style="font-size:11px">Bônus (R$)</label><input type="text" id="rk-bonus2" placeholder="Ex: 150,00" oninput="maskMoney(this)"></div>
+            </div>
+          </div>
+          <div>
+            <label>Meta RK Nível 3</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div><label style="font-size:11px">Meta (R$)</label><input type="text" id="rk-meta3" placeholder="Ex: 3.500,00" oninput="maskMoney(this)"></div>
+              <div><label style="font-size:11px">Bônus (R$)</label><input type="text" id="rk-bonus3" placeholder="Ex: 250,00" oninput="maskMoney(this)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:20px" onclick="saveConfig()">💾 Salvar Bônus</button>
   </div>
-  <div style="display:flex;gap:10px">
-    <button class="btn btn-primary" onclick="saveConfig()">💾 Salvar</button>
-    <button class="btn btn-danger" onclick="clearAllData()">🗑️ Limpar Todos os Dados</button>
+
+  <!-- REGRAS tab -->
+  <div id="cfg-tab-regras" style="display:none">
+    <div class="card card-md" style="max-width:560px;margin-bottom:16px">
+      <h3 style="font-size:16px;margin-bottom:12px">📐 Tabela H.O — Parcela Comum</h3>
+      <div style="display:grid;gap:4px;font-size:13px">
+        <div style="display:grid;grid-template-columns:1fr 80px;padding:7px 10px;background:var(--bg2);border-radius:7px;font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase">
+          <span>Dias de Atraso</span><span style="text-align:right">Taxa H.O</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 80px;padding:8px 10px;border-radius:7px;background:color-mix(in srgb,var(--accent) 7%,transparent)"><span>1 – 60 dias</span><span style="text-align:right;font-weight:700;color:var(--accent)">5%</span></div>
+        <div style="display:grid;grid-template-columns:1fr 80px;padding:8px 10px;border-radius:7px;background:color-mix(in srgb,var(--accent) 7%,transparent)"><span>61 – 90 dias</span><span style="text-align:right;font-weight:700;color:var(--accent)">7,5%</span></div>
+        <div style="display:grid;grid-template-columns:1fr 80px;padding:8px 10px;border-radius:7px;background:color-mix(in srgb,var(--yellow) 8%,transparent)"><span>91 – 120 dias</span><span style="text-align:right;font-weight:700;color:var(--yellow)">9%</span></div>
+        <div style="display:grid;grid-template-columns:1fr 80px;padding:8px 10px;border-radius:7px;background:color-mix(in srgb,var(--yellow) 8%,transparent)"><span>121 – 150 dias</span><span style="text-align:right;font-weight:700;color:var(--yellow)">11%</span></div>
+        <div style="display:grid;grid-template-columns:1fr 80px;padding:8px 10px;border-radius:7px;background:color-mix(in srgb,var(--orange) 8%,transparent)"><span>151 – 180 dias</span><span style="text-align:right;font-weight:700;color:var(--orange)">13%</span></div>
+        <div style="display:grid;grid-template-columns:1fr 80px;padding:8px 10px;border-radius:7px;background:color-mix(in srgb,var(--red) 8%,transparent)"><span>Acima de 180 dias</span><span style="text-align:right;font-weight:700;color:var(--red)">18%</span></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:560px">
+      <div class="card card-md">
+        <h3 style="font-size:16px;margin-bottom:12px">📐 Quitação À Vista</h3>
+        <div style="display:grid;gap:4px;font-size:13px">
+          <div style="display:grid;grid-template-columns:1fr 60px;padding:8px 10px;border-radius:7px;background:color-mix(in srgb,var(--yellow) 8%,transparent)"><span>181–360d</span><span style="text-align:right;font-weight:700;color:var(--yellow)">20%</span></div>
+          <div style="display:grid;grid-template-columns:1fr 60px;padding:8px 10px;border-radius:7px;background:color-mix(in srgb,var(--orange) 8%,transparent)"><span>361–720d</span><span style="text-align:right;font-weight:700;color:var(--orange)">23%</span></div>
+          <div style="display:grid;grid-template-columns:1fr 60px;padding:8px 10px;border-radius:7px;background:color-mix(in srgb,var(--red) 8%,transparent)"><span>721–1080d</span><span style="text-align:right;font-weight:700;color:var(--red)">27%</span></div>
+          <div style="display:grid;grid-template-columns:1fr 60px;padding:8px 10px;border-radius:7px;background:color-mix(in srgb,var(--red) 14%,transparent)"><span>Acima 1080d</span><span style="text-align:right;font-weight:700;color:var(--red)">32%</span></div>
+        </div>
+      </div>
+      <div class="card card-md">
+        <h3 style="font-size:16px;margin-bottom:12px">📐 Quitação Parcelada</h3>
+        <div style="display:grid;gap:4px;font-size:13px">
+          <div style="display:grid;grid-template-columns:1fr 60px;padding:8px 10px;border-radius:7px;background:color-mix(in srgb,var(--orange) 8%,transparent)"><span>181–720d</span><span style="text-align:right;font-weight:700;color:var(--orange)">18%</span></div>
+          <div style="display:grid;grid-template-columns:1fr 60px;padding:8px 10px;border-radius:7px;background:color-mix(in srgb,var(--red) 8%,transparent)"><span>Acima 720d</span><span style="text-align:right;font-weight:700;color:var(--red)">22,5%</span></div>
+        </div>
+        <div style="margin-top:16px;padding:10px;background:color-mix(in srgb,var(--accent) 7%,transparent);border-radius:8px;font-size:12px;color:var(--text2);line-height:1.5">
+          <strong style="color:var(--text)">Escalonamento retroativo</strong><br>
+          A faixa é determinada pelo <strong>Total H.O dos Pagos</strong> e a taxa é aplicada integralmente sobre todo o H.O acumulado.
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -468,10 +600,6 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:po
           <p style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px">Pré-visualização (5 primeiras linhas)</p>
           <div class="import-preview" id="import-preview"></div>
         </div>
-        <div style="display:flex;gap:8px;align-items:center;margin-top:16px;padding:12px;background:color-mix(in srgb,var(--yellow) 8%,transparent);border-radius:8px;border:1px solid color-mix(in srgb,var(--yellow) 30%,transparent)">
-          <span style="font-size:18px">ℹ️</span>
-          <p style="font-size:12.5px;color:var(--text2)">Linhas com <strong style="color:var(--text)">Nome</strong>, <strong style="color:var(--text)">Valor</strong> e <strong style="color:var(--text)">Vencimento</strong> serão importadas.</p>
-        </div>
         <div style="display:flex;gap:10px;margin-top:16px">
           <button class="btn btn-success" onclick="runImport()">📥 Importar dados</button>
           <button class="btn btn-secondary" onclick="closeImport()">Cancelar</button>
@@ -489,27 +617,40 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:po
 </div>
 
 <script>
-// ======================== STATE ========================
+// ============================================================
+// STATE
+// ============================================================
 let contratos=[];
-let config={meta:0};
+let config={
+  meta:0,
+  // Bônus CX: baseado em Total Pago (Caixa)
+  cxMeta1:5000, cxBonus1:100,
+  cxMeta2:8000, cxBonus2:250,
+  cxMeta3:12000,cxBonus3:500,
+  // Bônus RK: baseado em Total H.O dos pagos
+  rkMeta1:1000, rkBonus1:100,
+  rkMeta2:2000, rkBonus2:150,
+  rkMeta3:3500, rkBonus3:250,
+};
 let currentFilter='mes',filterFrom=null,filterTo=null;
 let tableFilter='mes',tableFilterFrom=null,tableFilterTo=null;
 let editingId=null,activeCarteira='all',showOnlyVencidos=false;
 let selectedIds=new Set();
 let sortCol='',sortDir=1;
 let importRows=[],importHeaders=[];
-
-// NEW: dashboard carteira filter (separate from table)
 let dashCarteira='all';
 
-// ======================== INIT ========================
+// ============================================================
+// INIT
+// ============================================================
 function init(){
   contratos=JSON.parse(localStorage.getItem('gb_contratos')||'[]');
-  config=JSON.parse(localStorage.getItem('gb_config')||'{"meta":0}');
+  const savedCfg=JSON.parse(localStorage.getItem('gb_config')||'{}');
+  config=Object.assign({},config,savedCfg);
+
   const dark=localStorage.getItem('gb_dark')==='1';
   if(dark){document.documentElement.setAttribute('data-theme','dark');document.getElementById('darkToggle').checked=true;}
 
-  // Restore persisted states
   dashCarteira=localStorage.getItem('gb_dash_carteira')||'all';
   activeCarteira=localStorage.getItem('gb_table_carteira')||'all';
   currentFilter=localStorage.getItem('gb_dash_filter')||'mes';
@@ -517,7 +658,17 @@ function init(){
 
   document.getElementById('f-data').value=today();
   document.getElementById('f-vencimento').value=today();
+
+  // Populate config fields
   document.getElementById('cfg-meta').value=config.meta?fmtMoney(config.meta):'';
+  ['cx-meta1','cx-bonus1','cx-meta2','cx-bonus2','cx-meta3','cx-bonus3',
+   'rk-meta1','rk-bonus1','rk-meta2','rk-bonus2','rk-meta3','rk-bonus3'].forEach(id=>{
+    const key=id.replace('-','').replace(/(\d)/,(m,g)=>g);
+    const cfgKey=toCfgKey(id);
+    const el=document.getElementById(id);
+    if(el&&config[cfgKey]!=null)el.value=fmtMoney(config[cfgKey]);
+  });
+
   const now=new Date();
   const ms=new Date(now.getFullYear(),now.getMonth(),1).toISOString().split('T')[0];
   const me=new Date(now.getFullYear(),now.getMonth()+1,0).toISOString().split('T')[0];
@@ -526,17 +677,8 @@ function init(){
   document.getElementById('tableFilterFrom').value=ms;
   document.getElementById('tableFilterTo').value=me;
 
-  // Restore active dash filter tab UI
-  document.querySelectorAll('#dash-filter-tabs .filter-tab').forEach(t=>t.classList.remove('active'));
-  const dashTabMap={dia:0,mes:1,semana:2,todos:3};
-  const dashTabs=document.querySelectorAll('#dash-filter-tabs .filter-tab');
-  if(dashTabs[dashTabMap[currentFilter]])dashTabs[dashTabMap[currentFilter]].classList.add('active');
-
-  // Restore active table filter tab UI
-  document.querySelectorAll('#table-filter-tabs .filter-tab').forEach(t=>t.classList.remove('active'));
-  const tableTabMap={dia:0,mes:1,semana:2,todos:3};
-  const tableTabs=document.querySelectorAll('#table-filter-tabs .filter-tab');
-  if(tableTabs[tableTabMap[tableFilter]])tableTabs[tableTabMap[tableFilter]].classList.add('active');
+  restoreTabUI('#dash-filter-tabs',currentFilter);
+  restoreTabUI('#table-filter-tabs',tableFilter);
 
   autoCancel();
   updateDashCarteiraPills();
@@ -545,13 +687,25 @@ function init(){
   renderTable();
 
   document.addEventListener('click',function(e){
-    if(!e.target.closest('.act-wrap')){
-      document.querySelectorAll('.act-menu.open').forEach(m=>m.classList.remove('open'));
-    }
+    if(!e.target.closest('.act-wrap'))document.querySelectorAll('.act-menu.open').forEach(m=>m.classList.remove('open'));
   });
 }
 
-// ======================== PERSIST SAVE ========================
+function toCfgKey(htmlId){
+  // cx-meta1 → cxMeta1
+  return htmlId.replace(/-([a-z])(\d)/g,(_,l,n)=>l.toUpperCase()+n).replace(/-([a-z])/g,(_,l)=>l.toUpperCase());
+}
+
+function restoreTabUI(sel,filter){
+  const map={dia:0,mes:1,semana:2,todos:3};
+  const tabs=document.querySelectorAll(sel+' .filter-tab');
+  tabs.forEach(t=>t.classList.remove('active'));
+  if(tabs[map[filter]])tabs[map[filter]].classList.add('active');
+}
+
+// ============================================================
+// SAVE
+// ============================================================
 function save(){
   localStorage.setItem('gb_contratos',JSON.stringify(contratos));
   localStorage.setItem('gb_dash_carteira',dashCarteira);
@@ -560,17 +714,20 @@ function save(){
   localStorage.setItem('gb_table_filter',tableFilter);
 }
 
-// ======================== AUTO-CANCEL ========================
+// ============================================================
+// AUTO-CANCEL (>5 dias)
+// ============================================================
 function autoCancel(){
   let changed=0;
-  const t=today();
   contratos.forEach(c=>{
-    if(c.status==='Aberto'&&c.vencimento&&diffDays(c.vencimento,t)>5){c.status='Cancelado';c._autoCancelled=true;changed++;}
+    if(c.status==='Aberto'&&c.vencimento&&diffDays(c.vencimento)>5){c.status='Cancelado';c._autoCancelled=true;changed++;}
   });
   if(changed>0)save();
 }
 
-// ======================== HELPERS ========================
+// ============================================================
+// HELPERS
+// ============================================================
 function today(){return new Date().toISOString().split('T')[0];}
 function fmtMoney(v){return Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function parseMoney(str){if(!str)return 0;return parseFloat(String(str).replace(/\./g,'').replace(',','.'))||0;}
@@ -578,14 +735,51 @@ function fmtDate(d){if(!d)return'';const[y,m,dd]=d.split('-');return`${dd}/${m}/
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
 function escHtml(str){return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function setText(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
-function diffDays(d1,d2){
-  return Math.floor((new Date(d1+'T00:00:00') - new Date((d2||today())+'T00:00:00'))/86400000)*-1;
+
+// diffDays: positive = overdue (vencimento is in the past)
+function diffDays(vencimento){
+  if(!vencimento)return 0;
+  return Math.floor((new Date(today()+'T00:00:00')-new Date(vencimento+'T00:00:00'))/86400000);
 }
 
-// ======================== HO LOGIC ========================
+// ============================================================
+// H.O LOGIC
+// ============================================================
+// Regra: H.O calculado em todos os contratos Aberto com atraso.
+// Para contratos PAGOS: usa taxa conforme dias de atraso no momento do registro.
+// Para o dashboard: somamos H.O dos PAGOS (base da comissão).
 function calcHO(c){
-  if(c.status!=='Aberto')return{taxa:0,valor:0,diasAtraso:0};
-  const dias=diffDays(c.vencimento,today());
+  // Para exibição na tabela: calcula sobre o status atual
+  const dias= c.status==='Aberto' ? diffDays(c.vencimento) : (c._diasAtrasoNoPagamento||0);
+  if(dias<=0)return{taxa:0,valor:0,diasAtraso:0};
+  const val=parseMoney(c.valor);
+  const tipo=c.tipo||'Parcela Comum';
+  let taxa=0;
+  if(tipo==='Parcela Comum'){
+    if(dias<=60)taxa=.05;
+    else if(dias<=90)taxa=.075;
+    else if(dias<=120)taxa=.09;
+    else if(dias<=150)taxa=.11;
+    else if(dias<=180)taxa=.13;
+    else taxa=.18;
+  }else if(tipo==='Quitação À Vista'){
+    if(dias>=181&&dias<=360)taxa=.20;
+    else if(dias>=361&&dias<=720)taxa=.23;
+    else if(dias>=721&&dias<=1080)taxa=.27;
+    else if(dias>1080)taxa=.32;
+    // <181 dias sem H.O para quitação
+  }else if(tipo==='Quitação Parcelada'){
+    if(dias>=181&&dias<=720)taxa=.18;
+    else if(dias>720)taxa=.225;
+  }
+  return{taxa,valor:val*taxa,diasAtraso:dias};
+}
+
+// H.O para contratos PAGOS (base da comissão):
+// Usa dias de atraso salvo no campo _diasAtrasoNoPagamento, ou recalcula pelo vencimento.
+function calcHOPago(c){
+  if(c.status!=='Pago')return{taxa:0,valor:0,diasAtraso:0};
+  const dias=c._diasAtrasoNoPagamento!=null ? c._diasAtrasoNoPagamento : diffDays(c.vencimento);
   if(dias<=0)return{taxa:0,valor:0,diasAtraso:0};
   const val=parseMoney(c.valor);
   const tipo=c.tipo||'Parcela Comum';
@@ -594,50 +788,91 @@ function calcHO(c){
     if(dias<=60)taxa=.05;else if(dias<=90)taxa=.075;else if(dias<=120)taxa=.09;
     else if(dias<=150)taxa=.11;else if(dias<=180)taxa=.13;else taxa=.18;
   }else if(tipo==='Quitação À Vista'){
-    if(dias>=181&&dias<=360)taxa=.20;else if(dias<=720)taxa=.23;
-    else if(dias<=1080)taxa=.27;else if(dias>1080)taxa=.32;
+    if(dias>=181&&dias<=360)taxa=.20;else if(dias>=361&&dias<=720)taxa=.23;
+    else if(dias>=721&&dias<=1080)taxa=.27;else if(dias>1080)taxa=.32;
   }else if(tipo==='Quitação Parcelada'){
     if(dias>=181&&dias<=720)taxa=.18;else if(dias>720)taxa=.225;
   }
   return{taxa,valor:val*taxa,diasAtraso:dias};
 }
 
-// ======================== COMMISSION ========================
-function getCommissionRate(totalPago){
-  if(totalPago<3500)return 0;
-  if(totalPago<5000)return .015;
-  if(totalPago<7500)return .03;
+// ============================================================
+// COMISSÃO — escalonamento retroativo sobre TOTAL H.O PAGO
+// ============================================================
+function getCommissionRate(totalHO){
+  if(totalHO<3500)return 0;
+  if(totalHO<5000)return .015;
+  if(totalHO<7500)return .03;
   return .05;
 }
-function getCommissionLabel(totalPago){
-  if(totalPago<3500)return'0%';
-  if(totalPago<5000)return'1,5%';
-  if(totalPago<7500)return'3%';
+function getCommissionLabel(totalHO){
+  if(totalHO<3500)return'0%';
+  if(totalHO<5000)return'1,5%';
+  if(totalHO<7500)return'3%';
   return'5%';
 }
-function calcTotalComissao(pagos){
-  const totalPago=pagos.reduce((a,c)=>a+parseMoney(c.valor),0);
-  const rate=getCommissionRate(totalPago);
-  const totalComissao=pagos.reduce((a,c)=>a+(parseMoney(c.valor)*rate),0);
-  return{totalPago,rate,totalComissao,label:getCommissionLabel(totalPago)};
+function calcComissao(pagos){
+  // 1. Soma H.O de todos os pagos
+  const totalHO=pagos.reduce((a,c)=>{const h=calcHOPago(c);return a+h.valor;},0);
+  // 2. Determina taxa pela faixa do total H.O
+  const rate=getCommissionRate(totalHO);
+  // 3. Aplica taxa retroativamente sobre o total H.O
+  const totalComissao=totalHO*rate;
+  return{totalHO,rate,totalComissao,label:getCommissionLabel(totalHO)};
 }
-function renderCommissionTiers(totalPago){
+
+function renderCommissionTiers(totalHO){
   const tiers=[
-    {label:'Até R$ 3.499,99',pct:'0%',min:0,max:3499.99},
-    {label:'R$ 3.500 – R$ 4.999,99',pct:'1,5%',min:3500,max:4999.99},
-    {label:'R$ 5.000 – R$ 7.499,99',pct:'3%',min:5000,max:7499.99},
-    {label:'Acima de R$ 7.500',pct:'5%',min:7500,max:Infinity},
+    {label:'H.O Pago < R$ 3.499,99',pct:'0%',min:0,max:3499.99},
+    {label:'H.O Pago R$ 3.500 – 4.999',pct:'1,5%',min:3500,max:4999.99},
+    {label:'H.O Pago R$ 5.000 – 7.499',pct:'3%',min:5000,max:7499.99},
+    {label:'H.O Pago > R$ 7.500',pct:'5%',min:7500,max:Infinity},
   ];
   const el=document.getElementById('commission-tiers');
   if(!el)return;
   el.innerHTML=tiers.map(t=>{
-    const active=totalPago>=t.min&&totalPago<=t.max;
-    return`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-radius:7px;margin-bottom:3px;font-size:12.5px;${active?'background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);font-weight:700;color:var(--accent);':'background:var(--bg2);color:var(--text2);'}">
+    const active=totalHO>=t.min&&totalHO<=t.max;
+    return`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-radius:7px;margin-bottom:3px;font-size:12px;
+      ${active?'background:color-mix(in srgb,var(--purple) 14%,transparent);border:1px solid color-mix(in srgb,var(--purple) 30%,transparent);font-weight:700;color:var(--purple);':'background:var(--bg2);color:var(--text2);'}">
       <span>${active?'▶ ':''}${t.label}</span><span>${t.pct}</span></div>`;
   }).join('');
 }
 
-// ======================== MASKS ========================
+// ============================================================
+// BÔNUS CX e RK
+// ============================================================
+function calcBonus(value, meta1, bonus1, meta2, bonus2, meta3, bonus3){
+  // Retorna o bônus do nível mais alto atingido
+  if(meta3>0&&value>=meta3)return{value:bonus3,level:3,next:null};
+  if(meta2>0&&value>=meta2)return{value:bonus2,level:2,next:meta3>0?{meta:meta3,bonus:bonus3}:null};
+  if(meta1>0&&value>=meta1)return{value:bonus1,level:1,next:meta2>0?{meta:meta2,bonus:bonus2}:null};
+  return{value:0,level:0,next:meta1>0?{meta:meta1,bonus:bonus1}:null};
+}
+
+function renderBonusCard(totalCaixa, totalHOPago){
+  const cx=calcBonus(totalCaixa,
+    config.cxMeta1,config.cxBonus1,config.cxMeta2,config.cxBonus2,config.cxMeta3,config.cxBonus3);
+  const rk=calcBonus(totalHOPago,
+    config.rkMeta1,config.rkBonus1,config.rkMeta2,config.rkBonus2,config.rkMeta3,config.rkBonus3);
+
+  setText('bonus-cx-val','R$ '+fmtMoney(cx.value));
+  setText('bonus-cx-label', cx.level>0?`Nível ${cx.level} atingido ✓`: cx.next?`Faltam R$ ${fmtMoney(cx.next.meta-totalCaixa)}`:'Não configurado');
+  setText('bonus-rk-val','R$ '+fmtMoney(rk.value));
+  setText('bonus-rk-label', rk.level>0?`Nível ${rk.level} atingido ✓`: rk.next?`Faltam R$ ${fmtMoney(rk.next.meta-totalHOPago)}`:'Não configurado');
+
+  const totalBonus=cx.value+rk.value;
+  setText('bonus-total-badge','R$ '+fmtMoney(totalBonus));
+
+  // Next hint
+  const hints=[];
+  if(cx.next)hints.push(`CX Nível ${cx.level+1}: faltam R$ ${fmtMoney(cx.next.meta-totalCaixa)} → bônus R$ ${fmtMoney(cx.next.bonus)}`);
+  if(rk.next)hints.push(`RK Nível ${rk.level+1}: faltam R$ ${fmtMoney(rk.next.meta-totalHOPago)} no H.O → bônus R$ ${fmtMoney(rk.next.bonus)}`);
+  setText('bonus-next-hint', hints.length? '🎯 Próximos: '+hints.join(' · '): cx.level===3&&rk.level===3?'🎉 Todos os bônus atingidos!':'Configure metas de bônus nas Configurações');
+}
+
+// ============================================================
+// MASKS
+// ============================================================
 function maskMoney(el){
   let v=el.value.replace(/\D/g,'');
   if(!v){el.value='';return;}
@@ -651,14 +886,30 @@ function maskCpfCnpj(el){
   el.value=v;
 }
 
-// ======================== DARK MODE ========================
+// ============================================================
+// DARK MODE
+// ============================================================
 function toggleDark(){
   const d=document.getElementById('darkToggle').checked;
   document.documentElement.setAttribute('data-theme',d?'dark':'light');
   localStorage.setItem('gb_dark',d?'1':'0');
 }
 
-// ======================== PAGES ========================
+// ============================================================
+// CONFIG TABS
+// ============================================================
+function showConfigTab(tab, el){
+  ['meta','bonus','regras'].forEach(t=>{
+    const el2=document.getElementById('cfg-tab-'+t);
+    if(el2)el2.style.display=t===tab?'':'none';
+  });
+  document.querySelectorAll('.sec-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ============================================================
+// PAGES
+// ============================================================
 function showPage(page){
   ['dashboard','contratos','novo','config'].forEach(p=>{
     document.getElementById('page-'+p).style.display='none';
@@ -681,34 +932,31 @@ function showVencidos(){
   renderTable();
 }
 
-// ======================== DASHBOARD CARTEIRA FILTER ========================
+// ============================================================
+// DASHBOARD CARTEIRA PILLS
+// ============================================================
 function updateDashCarteiraPills(){
   const carteiras=[...new Set(contratos.map(c=>c.carteira).filter(Boolean))];
   const container=document.getElementById('dash-carteira-pills');
   if(!container)return;
   container.innerHTML='';
-  const addPill=(label,val)=>{
+  const add=(label,val)=>{
     const b=document.createElement('button');
     b.className='dash-carteira-pill'+(dashCarteira===val?' active':'');
     b.textContent=label;
-    b.onclick=()=>{
-      dashCarteira=val;
-      save();
-      updateDashCarteiraPills();
-      renderDashboard();
-    };
+    b.onclick=()=>{dashCarteira=val;save();updateDashCarteiraPills();renderDashboard();};
     container.appendChild(b);
   };
-  addPill('Todas as Carteiras','all');
-  carteiras.forEach(k=>addPill(k,k));
+  add('Todas as Carteiras','all');
+  carteiras.forEach(k=>add(k,k));
 }
 
-// ======================== FILTERS ========================
+// ============================================================
+// FILTERS
+// ============================================================
 function setFilter(type,el){
   document.querySelectorAll('#dash-filter-tabs .filter-tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');currentFilter=type;filterFrom=null;filterTo=null;
-  save();
-  renderDashboard();
+  el.classList.add('active');currentFilter=type;filterFrom=null;filterTo=null;save();renderDashboard();
 }
 function applyCustomFilter(){
   filterFrom=document.getElementById('filterFrom').value;
@@ -717,9 +965,7 @@ function applyCustomFilter(){
 }
 function setTableFilter(type,el){
   document.querySelectorAll('#table-filter-tabs .filter-tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');tableFilter=type;tableFilterFrom=null;tableFilterTo=null;
-  save();
-  renderTable();
+  el.classList.add('active');tableFilter=type;tableFilterFrom=null;tableFilterTo=null;save();renderTable();
 }
 function applyTableCustomFilter(){
   tableFilterFrom=document.getElementById('tableFilterFrom').value;
@@ -744,10 +990,12 @@ function filterByPeriod(list,filter,from,to){
   });
 }
 
-// ======================== SORT ========================
+// ============================================================
+// SORT
+// ============================================================
 function sortBy(col){
   if(sortCol===col){sortDir*=-1;}else{sortCol=col;sortDir=1;}
-  document.querySelectorAll('th.sortable').forEach(th=>{th.classList.remove('sort-asc','sort-desc');});
+  document.querySelectorAll('th.sortable').forEach(th=>th.classList.remove('sort-asc','sort-desc'));
   document.querySelectorAll('th.sortable').forEach(th=>{
     if(th.getAttribute('onclick')===`sortBy('${col}')`){
       th.classList.add(sortDir===1?'sort-asc':'sort-desc');
@@ -768,24 +1016,27 @@ function applySortToList(list){
   });
 }
 
-// ======================== DASHBOARD ========================
+// ============================================================
+// DASHBOARD
+// ============================================================
 function renderDashboard(){
-  // Apply BOTH period filter AND dashboard carteira filter
   let base=filterByPeriod(contratos,currentFilter,filterFrom,filterTo);
   if(dashCarteira!=='all')base=base.filter(c=>c.carteira===dashCarteira);
 
   const pagos=base.filter(c=>c.status==='Pago');
   const abertos=base.filter(c=>c.status==='Aberto');
   const cancelados=base.filter(c=>c.status==='Cancelado');
+
   const sumPago=pagos.reduce((a,c)=>a+parseMoney(c.valor),0);
   const sumAberto=abertos.reduce((a,c)=>a+parseMoney(c.valor),0);
   const sumCancelado=cancelados.reduce((a,c)=>a+parseMoney(c.valor),0);
   const sumGerado=sumPago+sumAberto+sumCancelado;
-  const totalHO=abertos.reduce((a,c)=>{const h=calcHO(c);return a+h.valor;},0);
 
-  // Vencidos: respect carteira filter too
-  let allAbertos=contratos.filter(c=>c.status==='Aberto'&&c.vencimento&&c.vencimento<today());
-  if(dashCarteira!=='all')allAbertos=allAbertos.filter(c=>c.carteira===dashCarteira);
+  // H.O dos PAGOS = base da comissão e bônus RK
+  const com=calcComissao(pagos);
+
+  let allVencidos=contratos.filter(c=>c.status==='Aberto'&&c.vencimento&&c.vencimento<today());
+  if(dashCarteira!=='all')allVencidos=allVencidos.filter(c=>c.carteira===dashCarteira);
 
   setText('card-pago','R$ '+fmtMoney(sumPago));
   setText('card-pago-count',pagos.length+' contrato'+(pagos.length!==1?'s':''));
@@ -795,11 +1046,13 @@ function renderDashboard(){
   setText('card-cancelado-count',cancelados.length+' contrato'+(cancelados.length!==1?'s':''));
   setText('card-gerado','R$ '+fmtMoney(sumGerado));
   setText('card-gerado-sub',base.length+' contrato'+(base.length!==1?'s':'')+' no período');
-  setText('card-ho','R$ '+fmtMoney(totalHO));
-  setText('card-ho-sub',abertos.length+' boleto'+(abertos.length!==1?'s':'')+' em aberto');
-  setText('card-vencidos',allAbertos.length);
-  setText('card-vencidos-sub',allAbertos.length>0?'Clique para ver':'Nenhum no momento');
+  // H.O card = H.O acumulado dos PAGOS (base do escalonamento)
+  setText('card-ho','R$ '+fmtMoney(com.totalHO));
+  setText('card-ho-sub','Base: contratos pagos');
+  setText('card-vencidos',allVencidos.length);
+  setText('card-vencidos-sub',allVencidos.length>0?'Clique para ver':'Nenhum no momento');
 
+  // Meta
   const meta=config.meta||0;
   const pct=meta>0?Math.min((sumPago/meta)*100,100):0;
   setText('meta-pago-val','R$ '+fmtMoney(sumPago));
@@ -809,16 +1062,20 @@ function renderDashboard(){
   const falta=Math.max(meta-sumPago,0);
   setText('meta-falta',meta>0?(falta>0?'Faltam R$ '+fmtMoney(falta)+' para a meta':'🎉 Meta atingida!'):'Configure a meta nas configurações');
 
-  const com=calcTotalComissao(pagos);
+  // Comissão (sobre H.O)
   setText('comissao-val','R$ '+fmtMoney(com.totalComissao));
   setText('comissao-tier-badge',com.label);
-  renderCommissionTiers(com.totalPago);
+  renderCommissionTiers(com.totalHO);
 
+  // Bônus CX (sobre Total Pago Caixa) e RK (sobre Total H.O Pago)
+  renderBonusCard(sumPago, com.totalHO);
+
+  // Overdue alert
   const alertEl=document.getElementById('overdue-alert');
-  if(allAbertos.length>0){
+  if(allVencidos.length>0){
     alertEl.style.display='';
-    setText('overdue-title',allAbertos.length+' boleto'+(allAbertos.length!==1?'s vencidos':' vencido'));
-    setText('overdue-desc','Total: R$ '+fmtMoney(allAbertos.reduce((a,c)=>a+parseMoney(c.valor),0))+' — contratos com +5 dias serão cancelados');
+    setText('overdue-title',allVencidos.length+' boleto'+(allVencidos.length!==1?'s vencidos':' vencido'));
+    setText('overdue-desc','Total: R$ '+fmtMoney(allVencidos.reduce((a,c)=>a+parseMoney(c.valor),0))+' — contratos com +5 dias serão cancelados automaticamente');
   }else{alertEl.style.display='none';}
 
   const labels={dia:'Hoje',semana:'Esta semana',mes:'Este mês',todos:'Todos os registros',custom:'Período personalizado'};
@@ -826,21 +1083,23 @@ function renderDashboard(){
   setText('dash-period-label',(labels[currentFilter]||'')+carteiraLabel);
 }
 
-// ======================== TABLE ========================
+// ============================================================
+// TABLE
+// ============================================================
 function updateCarteiraPills(){
   const carteiras=[...new Set(contratos.map(c=>c.carteira).filter(Boolean))];
   const container=document.getElementById('carteira-pills');
   if(!container)return;
   container.innerHTML='';
-  const addPill=(label,val)=>{
+  const add=(label,val)=>{
     const b=document.createElement('button');
     b.className='pill'+(activeCarteira===val?' active':'');
     b.textContent=label;
     b.onclick=()=>{activeCarteira=val;save();updateCarteiraPills();renderTable();};
     container.appendChild(b);
   };
-  addPill('Todas','all');
-  carteiras.forEach(k=>addPill(k,k));
+  add('Todas','all');
+  carteiras.forEach(k=>add(k,k));
   const dl=document.getElementById('carteira-list');
   if(dl)dl.innerHTML=carteiras.map(k=>`<option value="${escHtml(k)}">`).join('');
 }
@@ -867,9 +1126,9 @@ function renderTable(){
   if(!tbody)return;
   const filtered=getTableFiltered();
   const t=today();
-  const allSelected=filtered.length>0&&filtered.every(c=>selectedIds.has(c.id));
+  const allSel=filtered.length>0&&filtered.every(c=>selectedIds.has(c.id));
   const sa=document.getElementById('selectAll');
-  if(sa)sa.checked=allSelected;
+  if(sa)sa.checked=allSel;
   updateBulkBar();
   if(filtered.length===0){
     tbody.innerHTML=`<tr><td colspan="15"><div class="empty-state"><div class="icon">📄</div><p>Nenhum contrato encontrado</p></div></td></tr>`;
@@ -879,7 +1138,8 @@ function renderTable(){
   tbody.innerHTML=filtered.map(c=>{
     const isOverdue=c.status==='Aberto'&&c.vencimento&&c.vencimento<t;
     const isAC=c._autoCancelled;
-    const ho=calcHO(c);
+    // Para tabela: H.O nos abertos usa dias atuais; nos pagos usa dias no pagamento
+    const ho=c.status==='Pago'?calcHOPago(c):calcHO(c);
     const isSel=selectedIds.has(c.id);
     const statusBadge={
       'Pago':'<span class="badge badge-green">✓ Pago</span>',
@@ -916,7 +1176,9 @@ function renderTable(){
   }).join('');
 }
 
-// ======================== ACTION MENU ========================
+// ============================================================
+// ACTION MENU
+// ============================================================
 function toggleActMenu(id,e){
   e.stopPropagation();
   const menu=document.getElementById(id);
@@ -927,7 +1189,9 @@ function toggleActMenu(id,e){
 function actEdit(id){document.querySelectorAll('.act-menu.open').forEach(m=>m.classList.remove('open'));openEdit(id);}
 function actDelete(id){document.querySelectorAll('.act-menu.open').forEach(m=>m.classList.remove('open'));deleteContrato(id);}
 
-// ======================== SELECTION & BULK ========================
+// ============================================================
+// SELECTION & BULK
+// ============================================================
 function toggleSelect(id,cb){
   if(cb.checked)selectedIds.add(id);else selectedIds.delete(id);
   const row=cb.closest('tr');if(row)row.classList.toggle('selected',cb.checked);
@@ -947,12 +1211,12 @@ function updateBulkBar(){
   const count=document.getElementById('bulk-count');
   if(!bar)return;
   if(selectedIds.size>0){bar.classList.add('show');if(count)count.textContent=selectedIds.size+' selecionado'+(selectedIds.size!==1?'s':'');}
-  else{bar.classList.remove('show');}
+  else bar.classList.remove('show');
 }
 function bulkDelete(){
   if(selectedIds.size===0)return;
   const modal=document.getElementById('confirmModal');
-  document.getElementById('confirmMsg').textContent=`Excluir ${selectedIds.size} contrato${selectedIds.size!==1?'s':''} selecionado${selectedIds.size!==1?'s':''}? Esta ação não pode ser desfeita.`;
+  document.getElementById('confirmMsg').textContent=`Excluir ${selectedIds.size} contrato${selectedIds.size!==1?'s':''}? Esta ação não pode ser desfeita.`;
   document.getElementById('confirmOk').onclick=function(){
     contratos=contratos.filter(c=>!selectedIds.has(c.id));selectedIds.clear();
     save();updateCarteiraPills();updateDashCarteiraPills();renderTable();renderDashboard();modal.classList.remove('open');
@@ -960,17 +1224,29 @@ function bulkDelete(){
   modal.classList.add('open');
 }
 
-// ======================== CRUD ========================
+// ============================================================
+// CRUD
+// ============================================================
 function saveContrato(){
   const nome=document.getElementById('f-nome').value.trim();
   const cpf=document.getElementById('f-cpf').value.trim();
   const contrato=document.getElementById('f-contrato').value.trim();
   const valor=document.getElementById('f-valor').value.trim();
   const vencimento=document.getElementById('f-vencimento').value;
-  if(!nome||!cpf||!contrato||!valor||!vencimento){alert('Preencha os campos obrigatórios: Nome, CPF/CNPJ, Nº Contrato, Valor e Vencimento.');return;}
-  contratos.unshift({id:uid(),nome,cpf,contrato,valor,data:document.getElementById('f-data').value||today(),vencimento,tipo:document.getElementById('f-tipo').value,status:document.getElementById('f-status').value,carteira:document.getElementById('f-carteira').value.trim(),obs:document.getElementById('f-obs').value.trim()});
+  if(!nome||!cpf||!contrato||!valor||!vencimento){alert('Preencha os campos obrigatórios.');return;}
+  const status=document.getElementById('f-status').value;
+  // Salvar dias de atraso no momento do cadastro se já Pago
+  const diasAtraso=diffDays(vencimento);
+  const novo={id:uid(),nome,cpf,contrato,valor,
+    data:document.getElementById('f-data').value||today(),vencimento,
+    tipo:document.getElementById('f-tipo').value,status,
+    carteira:document.getElementById('f-carteira').value.trim(),
+    obs:document.getElementById('f-obs').value.trim()};
+  if(status==='Pago')novo._diasAtrasoNoPagamento=diasAtraso>0?diasAtraso:0;
+  contratos.unshift(novo);
   save();autoCancel();resetForm();updateCarteiraPills();updateDashCarteiraPills();showPage('contratos');
 }
+
 function resetForm(){
   ['f-nome','f-cpf','f-contrato','f-valor','f-carteira','f-obs'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-data').value=today();
@@ -980,6 +1256,7 @@ function resetForm(){
   document.getElementById('form-title').textContent='Novo Contrato';
   editingId=null;
 }
+
 function openEdit(id){
   const c=contratos.find(x=>x.id===id);if(!c)return;
   editingId=id;
@@ -990,16 +1267,24 @@ function openEdit(id){
   document.getElementById('m-status').value=c.status||'Aberto';
   document.getElementById('editModal').classList.add('open');
 }
+
 function saveEdit(){
   const c=contratos.find(x=>x.id===editingId);if(!c)return;
+  const prevStatus=c.status;
   ['nome','cpf','contrato','valor','carteira','obs'].forEach(f=>{c[f]=document.getElementById('m-'+f).value.trim();});
   c.data=document.getElementById('m-data').value;
   c.vencimento=document.getElementById('m-vencimento').value;
   c.tipo=document.getElementById('m-tipo').value;
   c.status=document.getElementById('m-status').value;
-  if(c.status==='Aberto')c._autoCancelled=false;
+  // Se mudou para Pago: registra dias de atraso nesse momento
+  if(c.status==='Pago'&&prevStatus!=='Pago'){
+    const dias=diffDays(c.vencimento);
+    c._diasAtrasoNoPagamento=dias>0?dias:0;
+  }
+  if(c.status==='Aberto'){c._autoCancelled=false;delete c._diasAtrasoNoPagamento;}
   save();autoCancel();closeModal();updateCarteiraPills();updateDashCarteiraPills();renderTable();renderDashboard();
 }
+
 function deleteContrato(id){
   const c=contratos.find(x=>x.id===id);
   const modal=document.getElementById('confirmModal');
@@ -1012,61 +1297,62 @@ function deleteContrato(id){
 }
 function closeModal(){document.getElementById('editModal').classList.remove('open');editingId=null;}
 
-// ======================== CONFIG ========================
+// ============================================================
+// CONFIG
+// ============================================================
 function saveConfig(){
   config.meta=parseMoney(document.getElementById('cfg-meta').value);
+  // Bônus CX
+  config.cxMeta1=parseMoney(document.getElementById('cx-meta1').value);
+  config.cxBonus1=parseMoney(document.getElementById('cx-bonus1').value);
+  config.cxMeta2=parseMoney(document.getElementById('cx-meta2').value);
+  config.cxBonus2=parseMoney(document.getElementById('cx-bonus2').value);
+  config.cxMeta3=parseMoney(document.getElementById('cx-meta3').value);
+  config.cxBonus3=parseMoney(document.getElementById('cx-bonus3').value);
+  // Bônus RK
+  config.rkMeta1=parseMoney(document.getElementById('rk-meta1').value);
+  config.rkBonus1=parseMoney(document.getElementById('rk-bonus1').value);
+  config.rkMeta2=parseMoney(document.getElementById('rk-meta2').value);
+  config.rkBonus2=parseMoney(document.getElementById('rk-bonus2').value);
+  config.rkMeta3=parseMoney(document.getElementById('rk-meta3').value);
+  config.rkBonus3=parseMoney(document.getElementById('rk-bonus3').value);
   localStorage.setItem('gb_config',JSON.stringify(config));
-  renderDashboard();alert('✅ Configurações salvas!');
+  renderDashboard();
+  alert('✅ Configurações salvas!');
 }
+
 function clearAllData(){
   const modal=document.getElementById('confirmModal');
   document.getElementById('confirmMsg').textContent='⚠️ Isso vai apagar TODOS os contratos e configurações. Tem certeza?';
   document.getElementById('confirmOk').onclick=function(){
-    localStorage.clear();contratos=[];config={meta:0};selectedIds.clear();dashCarteira='all';activeCarteira='all';
-    modal.classList.remove('open');document.getElementById('cfg-meta').value='';
-    init();showPage('dashboard');
+    localStorage.clear();contratos=[];
+    config={meta:0,cxMeta1:5000,cxBonus1:100,cxMeta2:8000,cxBonus2:250,cxMeta3:12000,cxBonus3:500,
+      rkMeta1:1000,rkBonus1:100,rkMeta2:2000,rkBonus2:150,rkMeta3:3500,rkBonus3:250};
+    selectedIds.clear();dashCarteira='all';activeCarteira='all';
+    modal.classList.remove('open');init();showPage('dashboard');
   };
   modal.classList.add('open');
 }
 
-// ======================== EXPORT CSV — Excel BR format ========================
+// ============================================================
+// EXPORT CSV — Excel BR
+// ============================================================
 function exportCSV(){
   const filtered=getTableFiltered();
   if(!filtered.length){alert('Nenhum contrato para exportar.');return;}
-
   const SEP=';';
   const headers=['Nome','CPF/CNPJ','Data Cadastro','Nº Contrato','Valor','Vencimento',
-    'Dias Atraso','Taxa HO (%)','Valor HO','Tipo','Status','Carteira','Observações'];
-
+    'Dias Atraso','Taxa H.O (%)','Valor H.O','Tipo','Status','Carteira','Observações'];
   const rows=filtered.map(c=>{
-    const ho=calcHO(c);
-    const fields=[
-      c.nome,
-      c.cpf,
-      fmtDate(c.data),
-      c.contrato,
-      // Use comma as decimal separator for Excel BR
-      parseMoney(c.valor).toFixed(2).replace('.',','),
-      fmtDate(c.vencimento),
+    const ho=c.status==='Pago'?calcHOPago(c):calcHO(c);
+    const fields=[c.nome,c.cpf,fmtDate(c.data),c.contrato,
+      parseMoney(c.valor).toFixed(2).replace('.',','),fmtDate(c.vencimento),
       ho.diasAtraso>0?String(ho.diasAtraso):'',
       ho.taxa>0?((ho.taxa*100).toFixed(1).replace('.',',')+' %'):'',
       ho.valor>0?ho.valor.toFixed(2).replace('.',','):'',
-      c.tipo,
-      c.status,
-      c.carteira||'',
-      c.obs||''
-    ];
-    return fields.map(v=>{
-      const s=String(v);
-      // Quote if contains separator, newline or double-quote
-      if(s.includes(SEP)||s.includes('\n')||s.includes('"')){
-        return'"'+s.replace(/"/g,'""')+'"';
-      }
-      return s;
-    }).join(SEP);
+      c.tipo,c.status,c.carteira||'',c.obs||''];
+    return fields.map(v=>{const s=String(v);return(s.includes(SEP)||s.includes('\n')||s.includes('"'))?'"'+s.replace(/"/g,'""')+'"':s;}).join(SEP);
   });
-
-  // sep= directive so Excel auto-detects separator + BOM for accents
   const csv='sep='+SEP+'\r\n'+headers.join(SEP)+'\r\n'+rows.join('\r\n');
   const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob);
@@ -1074,7 +1360,9 @@ function exportCSV(){
   document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
 }
 
-// ======================== IMPORT ========================
+// ============================================================
+// IMPORT
+// ============================================================
 const IMPORT_FIELDS=[
   {key:'nome',label:'Nome / Nome Financiado',required:true},
   {key:'cpf',label:'CPF / CNPJ',required:false},
@@ -1090,9 +1378,7 @@ const IMPORT_FIELDS=[
 function openImport(){resetImport();document.getElementById('importModal').classList.add('open');}
 function closeImport(){
   document.getElementById('importModal').classList.remove('open');
-  if(document.getElementById('import-step3').style.display!=='none'){
-    updateCarteiraPills();updateDashCarteiraPills();renderTable();renderDashboard();
-  }
+  if(document.getElementById('import-step3').style.display!=='none'){updateCarteiraPills();updateDashCarteiraPills();renderTable();renderDashboard();}
   resetImport();
 }
 function resetImport(){
@@ -1102,14 +1388,11 @@ function resetImport(){
   document.getElementById('import-step3').style.display='none';
   document.getElementById('importFile').value='';
 }
-function handleFileDrop(e){
-  e.preventDefault();document.getElementById('drop-zone').style.borderColor='var(--border)';
-  const file=e.dataTransfer.files[0];if(file)processImportFile(file);
-}
+function handleFileDrop(e){e.preventDefault();document.getElementById('drop-zone').style.borderColor='var(--border)';const file=e.dataTransfer.files[0];if(file)processImportFile(file);}
 function handleFileSelect(input){if(input.files[0])processImportFile(input.files[0]);}
 function processImportFile(file){
   const ext=file.name.split('.').pop().toLowerCase();
-  if(!['xlsx','xls','csv'].includes(ext)){alert('Formato não suportado. Use .xlsx, .xls ou .csv');return;}
+  if(!['xlsx','xls','csv'].includes(ext)){alert('Formato não suportado.');return;}
   const reader=new FileReader();
   reader.onload=function(e){
     try{
@@ -1129,7 +1412,7 @@ function showImportStep2(fileName){
   document.getElementById('import-step1').style.display='none';
   document.getElementById('import-step2').style.display='';
   document.getElementById('import-file-info').textContent=fileName;
-  document.getElementById('import-rows-info').textContent=`${importRows.length} linhas encontradas · ${importHeaders.length} colunas`;
+  document.getElementById('import-rows-info').textContent=`${importRows.length} linhas · ${importHeaders.length} colunas`;
   const grid=document.getElementById('mapping-grid');
   grid.innerHTML=IMPORT_FIELDS.map(f=>{
     const opts=importHeaders.map((h,i)=>{
@@ -1147,11 +1430,7 @@ function showImportStep2(fileName){
   }).join('');
   updatePreview();
 }
-function getMapping(){
-  const m={};
-  IMPORT_FIELDS.forEach(f=>{const val=document.getElementById('map-'+f.key)?.value;if(val!=='')m[f.key]=parseInt(val);});
-  return m;
-}
+function getMapping(){const m={};IMPORT_FIELDS.forEach(f=>{const val=document.getElementById('map-'+f.key)?.value;if(val!=='')m[f.key]=parseInt(val);});return m;}
 function parseImportDate(raw){
   if(!raw)return'';
   if(raw instanceof Date){const y=raw.getFullYear(),mo=String(raw.getMonth()+1).padStart(2,'0'),d=String(raw.getDate()).padStart(2,'0');return`${y}-${mo}-${d}`;}
@@ -1162,38 +1441,22 @@ function parseImportDate(raw){
   if(/^\d+(\.\d+)?$/.test(s)){const ms=(parseFloat(s)-25569)*86400*1000;const dt=new Date(ms);if(!isNaN(dt)){const y=dt.getUTCFullYear(),mo=String(dt.getUTCMonth()+1).padStart(2,'0'),d=String(dt.getUTCDate()).padStart(2,'0');return`${y}-${mo}-${d}`;}}
   return'';
 }
-function parseImportTipo(raw){
-  if(!raw)return'Parcela Comum';
-  const s=String(raw).toLowerCase().trim();
-  if(s.includes('vista'))return'Quitação À Vista';
-  if(s.includes('parcel')&&s.includes('quit'))return'Quitação Parcelada';
-  if(s.includes('quit'))return'Quitação À Vista';
-  return'Parcela Comum';
-}
-function parseImportStatus(raw){
-  if(!raw)return'Aberto';
-  const s=String(raw).toLowerCase().trim();
-  if(s.includes('pago')||s.includes('paga')||s==='p')return'Pago';
-  if(s.includes('cancel'))return'Cancelado';
-  return'Aberto';
-}
-function parseImportValor(raw){
-  if(!raw&&raw!==0)return'';
-  let s=String(raw).trim().replace(/R\$\s?/,'').replace(/\s/g,'');
-  if(/\d,\d{2}$/.test(s)){s=s.replace(/\./g,'').replace(',','.');}else{s=s.replace(/,/g,'');}
-  const n=parseFloat(s);
-  if(isNaN(n)||n<=0)return'';
-  return fmtMoney(n);
-}
+function parseImportTipo(raw){if(!raw)return'Parcela Comum';const s=String(raw).toLowerCase().trim();if(s.includes('vista'))return'Quitação À Vista';if(s.includes('parcel')&&s.includes('quit'))return'Quitação Parcelada';if(s.includes('quit'))return'Quitação À Vista';return'Parcela Comum';}
+function parseImportStatus(raw){if(!raw)return'Aberto';const s=String(raw).toLowerCase().trim();if(s.includes('pago')||s.includes('paga')||s==='p')return'Pago';if(s.includes('cancel'))return'Cancelado';return'Aberto';}
+function parseImportValor(raw){if(!raw&&raw!==0)return'';let s=String(raw).trim().replace(/R\$\s?/,'').replace(/\s/g,'');if(/\d,\d{2}$/.test(s)){s=s.replace(/\./g,'').replace(',','.');}else{s=s.replace(/,/g,'');}const n=parseFloat(s);if(isNaN(n)||n<=0)return'';return fmtMoney(n);}
 function buildImportRow(row,mapping){
   const get=(key)=>mapping[key]!==undefined?row[mapping[key]]:'';
   const nome=String(get('nome')).trim();
   const valor=parseImportValor(get('valor'));
   const vencimento=parseImportDate(get('vencimento'));
-  return{nome,cpf:String(get('cpf')||'').trim(),contrato:String(get('contrato')||'').trim(),valor,vencimento,
-    data:parseImportDate(get('data'))||today(),tipo:parseImportTipo(get('tipo')),
-    status:parseImportStatus(get('status')),carteira:String(get('carteira')||'').trim(),
-    obs:String(get('obs')||'').trim(),_ok:!!(nome&&valor&&vencimento)};
+  const status=parseImportStatus(get('status'));
+  const diasAtraso=vencimento?diffDays(vencimento):0;
+  const row2={nome,cpf:String(get('cpf')||'').trim(),contrato:String(get('contrato')||'').trim(),valor,vencimento,
+    data:parseImportDate(get('data'))||today(),tipo:parseImportTipo(get('tipo')),status,
+    carteira:String(get('carteira')||'').trim(),obs:String(get('obs')||'').trim(),
+    _ok:!!(nome&&valor&&vencimento)};
+  if(status==='Pago')row2._diasAtrasoNoPagamento=diasAtraso>0?diasAtraso:0;
+  return row2;
 }
 function updatePreview(){
   const mapping=getMapping();
@@ -1206,12 +1469,13 @@ function updatePreview(){
 function runImport(){
   const mapping=getMapping();
   if(mapping.nome===undefined||mapping.valor===undefined||mapping.vencimento===undefined){alert('Mapeie ao menos: Nome, Valor e Vencimento.');return;}
-  let ok=0,skipped=0;
-  const log=[];
+  let ok=0,skipped=0;const log=[];
   importRows.forEach((row,i)=>{
     const r=buildImportRow(row,mapping);
     if(!r._ok){skipped++;log.push(`<div class="row-err">✗ Linha ${i+2}: ignorada — ${!r.nome?'sem nome':!r.valor?'sem valor':'sem vencimento'}</div>`);return;}
-    contratos.push({id:uid(),nome:r.nome,cpf:r.cpf,contrato:r.contrato,valor:r.valor,data:r.data,vencimento:r.vencimento,tipo:r.tipo,status:r.status,carteira:r.carteira,obs:r.obs});
+    const entry={id:uid(),nome:r.nome,cpf:r.cpf,contrato:r.contrato,valor:r.valor,data:r.data,vencimento:r.vencimento,tipo:r.tipo,status:r.status,carteira:r.carteira,obs:r.obs};
+    if(r._diasAtrasoNoPagamento!=null)entry._diasAtrasoNoPagamento=r._diasAtrasoNoPagamento;
+    contratos.push(entry);
     ok++;log.push(`<div class="row-ok">✓ Linha ${i+2}: ${escHtml(r.nome)} — R$ ${escHtml(r.valor)}</div>`);
   });
   save();autoCancel();
@@ -1223,7 +1487,9 @@ function runImport(){
   document.getElementById('import-result-log').innerHTML=log.join('');
 }
 
-// ======================== MODAL EVENTS ========================
+// ============================================================
+// MODAL EVENTS
+// ============================================================
 document.getElementById('editModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 document.getElementById('confirmModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
 document.getElementById('importModal').addEventListener('click',function(e){if(e.target===this)closeImport();});
