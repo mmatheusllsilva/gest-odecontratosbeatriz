@@ -105,6 +105,11 @@ tr.selected td{background:color-mix(in srgb,var(--accent) 8%,transparent)!import
 input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
 .dash-carteira-pill{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text2);transition:all .2s;white-space:nowrap}
 .dash-carteira-pill.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Privacy mode */
+.privacy-hidden{color:transparent;background:var(--bg2);border-radius:4px;min-width:80px;display:inline-block;text-decoration:none}
+.privacy-hidden::after{content:'••••';position:absolute;margin-left:2px;color:var(--text2)}
+#page-dashboard.privacy-mode .stat-value,#page-dashboard.privacy-mode .stat-sub{color:transparent;background:var(--bg2);border-radius:4px;padding:4px 8px}
+#page-dashboard.privacy-mode .stat-value::after,#page-dashboard.privacy-mode .stat-sub::after{content:'••••';position:absolute;margin-left:4px;color:var(--text2)}
 /* Bonus card */
 .bonus-tier{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;margin-bottom:4px;font-size:13px}
 .bonus-tier.reached{background:color-mix(in srgb,var(--green) 12%,transparent);border:1px solid color-mix(in srgb,var(--green) 30%,transparent);font-weight:700;color:var(--green)}
@@ -148,6 +153,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:po
       <p style="color:var(--text2);font-size:14px;margin-top:2px" id="dash-period-label">Visão geral do período</p>
     </div>
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <button id="privacy-btn" class="btn btn-secondary btn-sm" onclick="togglePrivacy()" title="Esconder valores (privacidade)" style="padding:8px 12px">👁️</button>
       <div class="filter-tabs" id="dash-filter-tabs">
         <button class="filter-tab" onclick="setFilter('dia',this)">Dia</button>
         <button class="filter-tab active" onclick="setFilter('mes',this)">Mês</button>
@@ -369,6 +375,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:po
           <option value="Parcela Comum">Parcela Comum</option>
           <option value="Quitação À Vista">Quitação À Vista</option>
           <option value="Quitação Parcelada">Quitação Parcelada</option>
+          <option value="Pagamento no Carnê">Pagamento no Carnê</option>
         </select>
       </div>
       <div><label>Status</label>
@@ -538,7 +545,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:po
         <div><label>Valor (R$)</label><input type="text" id="m-valor" oninput="maskMoney(this)"></div>
         <div><label>Vencimento</label><input type="date" id="m-vencimento"></div>
         <div><label>Tipo</label>
-          <select id="m-tipo"><option>Parcela Comum</option><option>Quitação À Vista</option><option>Quitação Parcelada</option></select>
+          <select id="m-tipo"><option>Parcela Comum</option><option>Quitação À Vista</option><option>Quitação Parcelada</option><option>Pagamento no Carnê</option></select>
         </div>
         <div><label>Status</label><select id="m-status"><option>Aberto</option><option>Pago</option><option>Cancelado</option></select></div>
         <div><label>Carteira</label><input type="text" id="m-carteira" list="carteira-list"></div>
@@ -639,6 +646,7 @@ let selectedIds=new Set();
 let sortCol='',sortDir=1;
 let importRows=[],importHeaders=[];
 let dashCarteira='all';
+let privacyMode=false;
 
 // ============================================================
 // INIT
@@ -771,6 +779,9 @@ function calcHO(c){
   }else if(tipo==='Quitação Parcelada'){
     if(dias>=181&&dias<=720)taxa=.18;
     else if(dias>720)taxa=.225;
+  }else if(tipo==='Pagamento no Carnê'){
+    // Sem H.O para pagamento no carnê
+    taxa=0;
   }
   return{taxa,valor:val*taxa,diasAtraso:dias};
 }
@@ -792,6 +803,9 @@ function calcHOPago(c){
     else if(dias>=721&&dias<=1080)taxa=.27;else if(dias>1080)taxa=.32;
   }else if(tipo==='Quitação Parcelada'){
     if(dias>=181&&dias<=720)taxa=.18;else if(dias>720)taxa=.225;
+  }else if(tipo==='Pagamento no Carnê'){
+    // Sem H.O para pagamento no carnê
+    taxa=0;
   }
   return{taxa,valor:val*taxa,diasAtraso:dias};
 }
@@ -905,6 +919,24 @@ function showConfigTab(tab, el){
   });
   document.querySelectorAll('.sec-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
+}
+
+// ============================================================
+// PRIVACY MODE
+// ============================================================
+function togglePrivacy(){
+  privacyMode=!privacyMode;
+  const dashEl=document.getElementById('page-dashboard');
+  const btnEl=document.getElementById('privacy-btn');
+  if(privacyMode){
+    dashEl.classList.add('privacy-mode');
+    btnEl.textContent='🔒';
+    btnEl.title='Mostrar valores (privacidade ativada)';
+  }else{
+    dashEl.classList.remove('privacy-mode');
+    btnEl.textContent='👁️';
+    btnEl.title='Esconder valores (privacidade)';
+  }
 }
 
 // ============================================================
@@ -1441,7 +1473,7 @@ function parseImportDate(raw){
   if(/^\d+(\.\d+)?$/.test(s)){const ms=(parseFloat(s)-25569)*86400*1000;const dt=new Date(ms);if(!isNaN(dt)){const y=dt.getUTCFullYear(),mo=String(dt.getUTCMonth()+1).padStart(2,'0'),d=String(dt.getUTCDate()).padStart(2,'0');return`${y}-${mo}-${d}`;}}
   return'';
 }
-function parseImportTipo(raw){if(!raw)return'Parcela Comum';const s=String(raw).toLowerCase().trim();if(s.includes('vista'))return'Quitação À Vista';if(s.includes('parcel')&&s.includes('quit'))return'Quitação Parcelada';if(s.includes('quit'))return'Quitação À Vista';return'Parcela Comum';}
+function parseImportTipo(raw){if(!raw)return'Parcela Comum';const s=String(raw).toLowerCase().trim();if(s.includes('vista'))return'Quitação À Vista';if(s.includes('parcel')&&s.includes('quit'))return'Quitação Parcelada';if(s.includes('quit'))return'Quitação À Vista';if(s.includes('carné')||s.includes('carne'))return'Pagamento no Carnê';return'Parcela Comum';}
 function parseImportStatus(raw){if(!raw)return'Aberto';const s=String(raw).toLowerCase().trim();if(s.includes('pago')||s.includes('paga')||s==='p')return'Pago';if(s.includes('cancel'))return'Cancelado';return'Aberto';}
 function parseImportValor(raw){if(!raw&&raw!==0)return'';let s=String(raw).trim().replace(/R\$\s?/,'').replace(/\s/g,'');if(/\d,\d{2}$/.test(s)){s=s.replace(/\./g,'').replace(',','.');}else{s=s.replace(/,/g,'');}const n=parseFloat(s);if(isNaN(n)||n<=0)return'';return fmtMoney(n);}
 function buildImportRow(row,mapping){
