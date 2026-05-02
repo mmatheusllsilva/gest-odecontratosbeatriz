@@ -106,10 +106,77 @@ input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:po
 .dash-carteira-pill{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text2);transition:all .2s;white-space:nowrap}
 .dash-carteira-pill.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 /* Privacy mode */
-.privacy-hidden{color:transparent;background:var(--bg2);border-radius:4px;min-width:80px;display:inline-block;text-decoration:none}
-.privacy-hidden::after{content:'••••';position:absolute;margin-left:2px;color:var(--text2)}
-#page-dashboard.privacy-mode .stat-value,#page-dashboard.privacy-mode .stat-sub{color:transparent;background:var(--bg2);border-radius:4px;padding:4px 8px}
-#page-dashboard.privacy-mode .stat-value::after,#page-dashboard.privacy-mode .stat-sub::after{content:'••••';position:absolute;margin-left:4px;color:var(--text2)}
+#page-dashboard.privacy-mode .stat-value{
+  background:var(--bg2) !important;
+  color:transparent !important;
+  border-radius:6px;
+  padding:6px 12px !important;
+  font-weight:400 !important;
+  letter-spacing:2px;
+  min-width:120px;
+  display:inline-block;
+}
+#page-dashboard.privacy-mode .stat-value::before{
+  content:'••••••';
+  position:absolute;
+  color:var(--text2);
+  letter-spacing:1px;
+}
+#page-dashboard.privacy-mode .stat-sub{
+  background:var(--bg2) !important;
+  color:transparent !important;
+  border-radius:6px;
+  padding:4px 10px !important;
+  min-width:80px;
+  display:inline-block;
+}
+#page-dashboard.privacy-mode .stat-sub::before{
+  content:'••••';
+  position:absolute;
+  color:var(--text2);
+}
+#page-dashboard.privacy-mode [id^="card-"]{
+  background:var(--bg2) !important;
+  color:transparent !important;
+  border-radius:6px;
+  padding:6px 12px !important;
+  min-width:100px;
+  display:inline-block;
+}
+#page-dashboard.privacy-mode [id^="card-"]::before{
+  content:'••••••';
+  position:absolute;
+  color:var(--text2);
+  letter-spacing:1px;
+}
+#page-dashboard.privacy-mode #meta-pago-val,
+#page-dashboard.privacy-mode #meta-total-val,
+#page-dashboard.privacy-mode #comissao-val,
+#page-dashboard.privacy-mode #bonus-cx-val,
+#page-dashboard.privacy-mode #bonus-rk-val,
+#page-dashboard.privacy-mode #bonus-total-badge{
+  background:var(--bg2) !important;
+  color:transparent !important;
+  border-radius:6px;
+  padding:6px 12px !important;
+  min-width:100px;
+  display:inline-block;
+  position:relative;
+}
+#page-dashboard.privacy-mode #meta-pago-val::before,
+#page-dashboard.privacy-mode #meta-total-val::before,
+#page-dashboard.privacy-mode #comissao-val::before,
+#page-dashboard.privacy-mode #bonus-cx-val::before,
+#page-dashboard.privacy-mode #bonus-rk-val::before,
+#page-dashboard.privacy-mode #bonus-total-badge::before{
+  content:'••••••';
+  position:absolute;
+  color:var(--text2);
+  letter-spacing:1px;
+}
+#page-dashboard.privacy-mode .progress-fill{
+  background:var(--bg2) !important;
+}
 /* Bonus card */
 .bonus-tier{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;margin-bottom:4px;font-size:13px}
 .bonus-tier.reached{background:color-mix(in srgb,var(--green) 12%,transparent);border:1px solid color-mix(in srgb,var(--green) 30%,transparent);font-weight:700;color:var(--green)}
